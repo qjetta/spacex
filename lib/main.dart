@@ -1,20 +1,41 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_web_plugins/url_strategy.dart';
 
-void main() {
-  runApp(const MainApp());
+import 'controller/go_router.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  // turn off the # in the URLs on the web
+  usePathUrlStrategy();
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [
+          Locale('en'),
+          //add others
+        ],
+        path:
+            'assets/translations', // <-- change the path of the translation files
+        fallbackLocale: const Locale('en'),
+        child: const SpaceXApp()),
+  );
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class SpaceXApp extends StatelessWidget {
+  const SpaceXApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello SpaceX!'),
-        ),
-      ),
+    return MaterialApp.router(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      routerConfig: goRouter,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.teal),
     );
   }
 }
