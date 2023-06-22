@@ -28,8 +28,14 @@ class ScaffoldWithDynamicNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var titlesAndIcons = [
-      TitleAndIcon(title: 'Past Launches', icon: Icons.chevron_left),
-      TitleAndIcon(title: 'Upcoming Launches', icon: Icons.chevron_right),
+      TitleAndIcon(
+        title: 'Past Launches',
+        icon: Icons.chevron_left,
+      ),
+      TitleAndIcon(
+        title: 'Upcoming Launches',
+        icon: Icons.chevron_right,
+      ),
     ];
 
     return LayoutBuilder(builder: (context, constraints) {
