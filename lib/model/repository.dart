@@ -21,6 +21,7 @@ class Repository {
     };
 
     final requestBody = jsonEncode(query.toJson());
+    logger.d(requestBody);
 
     try {
       final response = await _httpClient.post(Uri.parse(url),
@@ -43,6 +44,6 @@ class Repository {
   }
 
   init() {
-    //TODO load filters from shared preferences
+    //TODO do I need it?
   }
 }

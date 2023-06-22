@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacex/model/launches_simple_model.dart';
@@ -28,7 +29,18 @@ class LaunchListTile extends StatelessWidget {
               ? const Icon(Icons.check)
               : const Icon(Icons.check_box_outline_blank),
       title: Text(launch.name ?? ''),
-      subtitle: launch.details == null ? null : Text(launch.details!),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (launch.dateUtc != null)
+            Text(
+              '${DateFormat.yMMMd().format(launch.dateUtc!)} ${DateFormat.Hm().format(launch.dateUtc!)}',
+            ),
+          Text(
+            launch.details ?? '',
+          ),
+        ],
+      ),
       onTap: () => context.go('$path?id=${launch.id}'),
     );
   }

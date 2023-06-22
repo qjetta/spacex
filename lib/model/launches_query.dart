@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'launches_query.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class LaunchesQuery {
   @JsonKey(name: 'query')
   final LaunchesQueryData? queryData;
@@ -21,13 +21,13 @@ class LaunchesQuery {
   Map<String, dynamic> toJson() => _$LaunchesQueryToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class LaunchesQueryData {
   @JsonKey(name: 'date_utc')
   final DateQuery dateQuery;
 
   @JsonKey(name: 'rocket')
-  final String rocket;
+  final String? rocket;
 
   LaunchesQueryData({
     required this.dateQuery,
@@ -40,13 +40,13 @@ class LaunchesQueryData {
   Map<String, dynamic> toJson() => _$LaunchesQueryDataToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class DateQuery {
   @JsonKey(name: '\$gte')
-  final String gte;
+  final DateTime? gte;
 
   @JsonKey(name: '\$lte')
-  final String lte;
+  final DateTime? lte;
 
   DateQuery({
     required this.gte,
@@ -59,13 +59,13 @@ class DateQuery {
   Map<String, dynamic> toJson() => _$DateQueryToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class LaunchesQueryOptions {
   @JsonKey(name: 'select')
   final List<String> select;
 
   @JsonKey(name: 'sort')
-  final LaunchesQuerySort sort;
+  final Map<String, SortDirection> sort;
 
   @JsonKey(name: 'limit')
   final int limit;
@@ -86,17 +86,31 @@ class LaunchesQueryOptions {
   Map<String, dynamic> toJson() => _$LaunchesQueryOptionsToJson(this);
 }
 
-@JsonSerializable()
-class LaunchesQuerySort {
-  @JsonKey(name: 'name')
-  final String name;
+// @JsonSerializable()
+// class LaunchesQuerySort {
+//   @JsonKey(name: 'name')
+//   final String name;
 
-  LaunchesQuerySort({
-    required this.name,
-  });
+//   LaunchesQuerySort({
+//     required this.name,
+//   });
 
-  factory LaunchesQuerySort.fromJson(Map<String, dynamic> json) =>
-      _$LaunchesQuerySortFromJson(json);
+//   factory LaunchesQuerySort.fromJson(Map<String, dynamic> json) =>
+//       _$LaunchesQuerySortFromJson(json);
 
-  Map<String, dynamic> toJson() => _$LaunchesQuerySortToJson(this);
-}
+//   Map<String, dynamic> toJson() => _$LaunchesQuerySortToJson(this);
+// }
+
+enum SortDirection { asc, desc }
+
+// @JsonSerializable(explicitToJson: true)
+// class SortOptions {
+//   final SortDirection name;
+//   final SortDirection id;
+
+//   SortOptions({required this.name, required this.id});
+
+//   factory SortOptions.fromJson(Map<String, dynamic> json) =>
+//       _$SortOptionsFromJson(json);
+//   Map<String, dynamic> toJson() => _$SortOptionsToJson(this);
+// }

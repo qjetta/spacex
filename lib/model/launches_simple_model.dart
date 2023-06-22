@@ -65,7 +65,7 @@ class LaunchModel {
   final String? name;
 
   @JsonKey(name: 'date_utc')
-  final String? dateUtc;
+  final DateTime? dateUtc;
 
   @JsonKey(name: 'id')
   final String? id;

@@ -41,7 +41,9 @@ LaunchModel _$LaunchModelFromJson(Map<String, dynamic> json) => LaunchModel(
       rocket: json['rocket'] as String?,
       details: json['details'] as String?,
       name: json['name'] as String?,
-      dateUtc: json['date_utc'] as String?,
+      dateUtc: json['date_utc'] == null
+          ? null
+          : DateTime.parse(json['date_utc'] as String),
       id: json['id'] as String?,
       success: json['success'] as bool?,
     );
@@ -51,7 +53,7 @@ Map<String, dynamic> _$LaunchModelToJson(LaunchModel instance) =>
       'rocket': instance.rocket,
       'details': instance.details,
       'name': instance.name,
-      'date_utc': instance.dateUtc,
+      'date_utc': instance.dateUtc?.toIso8601String(),
       'id': instance.id,
       'success': instance.success,
     };
