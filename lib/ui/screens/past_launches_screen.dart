@@ -26,22 +26,23 @@ class PastLaunchesScreen extends StatelessWidget {
 
         cubit.fetchLaunches(
           launchesQuery: LaunchesQuery(
-            options: null,
-            // options: LaunchesQueryOptions(
-            //   limit: 10,
-            //   // sort: LaunchesQuerySort(
-            //   //   name:'date_utc',
-            //   //   order: SortOrder.desc,
-            //   // ),
-            //   page: 1,
-            //   select: ['id',
-            //         'name',
-            //         'rocket',
-            //         'details',
-            //         'date_utc','success', ],
-            // ),
-            queryData: null,
-          ),
+              options: LaunchesQueryOptions(
+                limit: 10,
+                sort: {'date_utc': SortDirection.desc},
+                page: 1,
+                select: [
+                  'id',
+                  'name',
+                  'rocket',
+                  'details',
+                  'date_utc',
+                  'success',
+                ],
+              ),
+              queryData: LaunchesQueryData(
+                dateQuery: DateQuery(gte: null, lte: DateTime.now().toUtc()),
+                rocket: null,
+              )),
         );
         return cubit;
       },
@@ -61,6 +62,7 @@ class PastLaunchesScreen extends StatelessWidget {
               );
             } else if (state is LaunchesSimpleLoadedState) {
               return ListView.builder(
+                //FIXME finish scrolling
                 itemCount: state.launchesSimpleModel.launches?.length ?? 0,
                 itemBuilder: (context, index) {
                   final launch = state.launchesSimpleModel.launches?[index];
