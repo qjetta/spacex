@@ -1,116 +1,59 @@
-import 'package:json_annotation/json_annotation.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'launches_query.freezed.dart';
 part 'launches_query.g.dart';
 
-@JsonSerializable(includeIfNull: false)
-class LaunchesQuery {
-  @JsonKey(name: 'query')
-  final LaunchesQueryData? queryData;
-
-  @JsonKey(name: 'options')
-  final LaunchesQueryOptions? options;
-
-  LaunchesQuery({
-    required this.queryData,
-    required this.options,
-  });
+@freezed
+//
+class LaunchesQuery with _$LaunchesQuery {
+  @JsonSerializable(includeIfNull: false)
+  factory LaunchesQuery({
+    @JsonKey(name: 'query') LaunchesQueryData? queryData,
+    @JsonKey(name: 'options') LaunchesQueryOptions? options,
+  }) = _LaunchesQuery;
 
   factory LaunchesQuery.fromJson(Map<String, dynamic> json) =>
       _$LaunchesQueryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LaunchesQueryToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true, includeIfNull: false)
-class LaunchesQueryData {
-  @JsonKey(name: 'date_utc')
-  final DateQuery dateQuery;
+@freezed
+class LaunchesQueryData with _$LaunchesQueryData {
+  @JsonSerializable(explicitToJson: true, includeIfNull: false)
+  const factory LaunchesQueryData({
+    @JsonKey(name: 'date_utc') DateQuery? dateQuery,
+    String? rocket,
+    bool? upcoming,
+  }) = _LauncherQueryData;
 
-  @JsonKey(name: 'rocket')
-  final String? rocket;
-
-  LaunchesQueryData({
-    required this.dateQuery,
-    required this.rocket,
-  });
-
-  factory LaunchesQueryData.fromJson(Map<String, dynamic> json) =>
+  factory LaunchesQueryData.fromJson(Map<String, Object?> json) =>
       _$LaunchesQueryDataFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LaunchesQueryDataToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true, includeIfNull: false)
-class DateQuery {
-  @JsonKey(name: '\$gte')
-  final DateTime? gte;
-
-  @JsonKey(name: '\$lte')
-  final DateTime? lte;
-
-  DateQuery({
-    required this.gte,
-    required this.lte,
-  });
+@freezed
+class DateQuery with _$DateQuery {
+  @JsonSerializable(explicitToJson: true, includeIfNull: false)
+  factory DateQuery({
+    @JsonKey(name: '\$gte') DateTime? gte,
+    @JsonKey(name: '\$lte') DateTime? lte,
+  }) = _DateQuery;
 
   factory DateQuery.fromJson(Map<String, dynamic> json) =>
       _$DateQueryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DateQueryToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true, includeIfNull: false)
-class LaunchesQueryOptions {
-  @JsonKey(name: 'select')
-  final List<String> select;
-
-  @JsonKey(name: 'sort')
-  final Map<String, SortDirection> sort;
-
-  @JsonKey(name: 'limit')
-  final int limit;
-
-  @JsonKey(name: 'page')
-  final int page;
-
-  LaunchesQueryOptions({
-    required this.select,
-    required this.sort,
-    required this.limit,
-    required this.page,
-  });
+@freezed
+class LaunchesQueryOptions with _$LaunchesQueryOptions {
+  @JsonSerializable(explicitToJson: true, includeIfNull: false)
+  factory LaunchesQueryOptions({
+    List<String>? select,
+    Map<String, SortDirection>? sort,
+    int? limit,
+    int? page,
+  }) = _LaunchesQueryOptions;
 
   factory LaunchesQueryOptions.fromJson(Map<String, dynamic> json) =>
       _$LaunchesQueryOptionsFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LaunchesQueryOptionsToJson(this);
 }
 
-// @JsonSerializable()
-// class LaunchesQuerySort {
-//   @JsonKey(name: 'name')
-//   final String name;
-
-//   LaunchesQuerySort({
-//     required this.name,
-//   });
-
-//   factory LaunchesQuerySort.fromJson(Map<String, dynamic> json) =>
-//       _$LaunchesQuerySortFromJson(json);
-
-//   Map<String, dynamic> toJson() => _$LaunchesQuerySortToJson(this);
-// }
-
 enum SortDirection { asc, desc }
-
-// @JsonSerializable(explicitToJson: true)
-// class SortOptions {
-//   final SortDirection name;
-//   final SortDirection id;
-
-//   SortOptions({required this.name, required this.id});
-
-//   factory SortOptions.fromJson(Map<String, dynamic> json) =>
-//       _$SortOptionsFromJson(json);
-//   Map<String, dynamic> toJson() => _$SortOptionsToJson(this);
-// }

@@ -6,8 +6,8 @@ part of 'launches_query.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LaunchesQuery _$LaunchesQueryFromJson(Map<String, dynamic> json) =>
-    LaunchesQuery(
+_$_LaunchesQuery _$$_LaunchesQueryFromJson(Map<String, dynamic> json) =>
+    _$_LaunchesQuery(
       queryData: json['query'] == null
           ? null
           : LaunchesQueryData.fromJson(json['query'] as Map<String, dynamic>),
@@ -17,7 +17,7 @@ LaunchesQuery _$LaunchesQueryFromJson(Map<String, dynamic> json) =>
               json['options'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$LaunchesQueryToJson(LaunchesQuery instance) {
+Map<String, dynamic> _$$_LaunchesQueryToJson(_$_LaunchesQuery instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -31,16 +31,18 @@ Map<String, dynamic> _$LaunchesQueryToJson(LaunchesQuery instance) {
   return val;
 }
 
-LaunchesQueryData _$LaunchesQueryDataFromJson(Map<String, dynamic> json) =>
-    LaunchesQueryData(
-      dateQuery: DateQuery.fromJson(json['date_utc'] as Map<String, dynamic>),
+_$_LauncherQueryData _$$_LauncherQueryDataFromJson(Map<String, dynamic> json) =>
+    _$_LauncherQueryData(
+      dateQuery: json['date_utc'] == null
+          ? null
+          : DateQuery.fromJson(json['date_utc'] as Map<String, dynamic>),
       rocket: json['rocket'] as String?,
+      upcoming: json['upcoming'] as bool?,
     );
 
-Map<String, dynamic> _$LaunchesQueryDataToJson(LaunchesQueryData instance) {
-  final val = <String, dynamic>{
-    'date_utc': instance.dateQuery.toJson(),
-  };
+Map<String, dynamic> _$$_LauncherQueryDataToJson(
+    _$_LauncherQueryData instance) {
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -48,11 +50,13 @@ Map<String, dynamic> _$LaunchesQueryDataToJson(LaunchesQueryData instance) {
     }
   }
 
+  writeNotNull('date_utc', instance.dateQuery?.toJson());
   writeNotNull('rocket', instance.rocket);
+  writeNotNull('upcoming', instance.upcoming);
   return val;
 }
 
-DateQuery _$DateQueryFromJson(Map<String, dynamic> json) => DateQuery(
+_$_DateQuery _$$_DateQueryFromJson(Map<String, dynamic> json) => _$_DateQuery(
       gte: json[r'$gte'] == null
           ? null
           : DateTime.parse(json[r'$gte'] as String),
@@ -61,7 +65,7 @@ DateQuery _$DateQueryFromJson(Map<String, dynamic> json) => DateQuery(
           : DateTime.parse(json[r'$lte'] as String),
     );
 
-Map<String, dynamic> _$DateQueryToJson(DateQuery instance) {
+Map<String, dynamic> _$$_DateQueryToJson(_$_DateQuery instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -75,27 +79,35 @@ Map<String, dynamic> _$DateQueryToJson(DateQuery instance) {
   return val;
 }
 
-LaunchesQueryOptions _$LaunchesQueryOptionsFromJson(
+_$_LaunchesQueryOptions _$$_LaunchesQueryOptionsFromJson(
         Map<String, dynamic> json) =>
-    LaunchesQueryOptions(
+    _$_LaunchesQueryOptions(
       select:
-          (json['select'] as List<dynamic>).map((e) => e as String).toList(),
-      sort: (json['sort'] as Map<String, dynamic>).map(
+          (json['select'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      sort: (json['sort'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, $enumDecode(_$SortDirectionEnumMap, e)),
       ),
-      limit: json['limit'] as int,
-      page: json['page'] as int,
+      limit: json['limit'] as int?,
+      page: json['page'] as int?,
     );
 
-Map<String, dynamic> _$LaunchesQueryOptionsToJson(
-        LaunchesQueryOptions instance) =>
-    <String, dynamic>{
-      'select': instance.select,
-      'sort':
-          instance.sort.map((k, e) => MapEntry(k, _$SortDirectionEnumMap[e]!)),
-      'limit': instance.limit,
-      'page': instance.page,
-    };
+Map<String, dynamic> _$$_LaunchesQueryOptionsToJson(
+    _$_LaunchesQueryOptions instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('select', instance.select);
+  writeNotNull('sort',
+      instance.sort?.map((k, e) => MapEntry(k, _$SortDirectionEnumMap[e]!)));
+  writeNotNull('limit', instance.limit);
+  writeNotNull('page', instance.page);
+  return val;
+}
 
 const _$SortDirectionEnumMap = {
   SortDirection.asc: 'asc',

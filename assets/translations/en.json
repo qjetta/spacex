@@ -1,5 +1,18 @@
 {
-    "past.launches.title": "Past Launches",
-    "upcoming.launches.title": "Upcoming Launches",
-    "launch.title": "Launch"
+    "past": {
+        "launches": {
+            "title": "Past Launches"
+        }
+    },
+    "upcoming": {
+        "launches": {
+            "title": "Upcoming Launches"
+        }
+    },
+    "launch": {
+        "title": "Launch"
+    },
+    "error": {
+        "unknown_state": "Unknown state ${state}"
+    }
 }

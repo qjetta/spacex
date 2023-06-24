@@ -9,25 +9,68 @@ import 'package:spacex/model/repository.dart';
 part 'launches_simple_state.dart';
 
 class LaunchesSimpleCubit extends Cubit<LaunchesSimpleState> {
-  LaunchesSimpleCubit({required repository})
-      : _repository = repository,
-        super(LaunchesSimpleInitialState());
-  final Repository _repository;
+  LaunchesSimpleCubit({
+    required repository,
+    required LaunchesQuery launchesQuery,
+  })  : _repository = repository,
+        super(
+          LaunchesSimpleInitialState(
+            launchesQuery: launchesQuery,
+            launchesSimpleList: const [],
+            hasNext: true,
+          ),
+        );
+  final IRepository _repository;
 
-  void fetchLaunches({required LaunchesQuery launchesQuery}) async {
-    emit(LaunchesSimpleLoadingState());
+  void fetchNextLaunches() async {
+    if (state is LaunchesSimpleLoadingState || !state.hasNext) {
+      return;
+    }
+    emit(LaunchesSimpleLoadingState(
+      launchesQuery: state.launchesQuery,
+      launchesSimpleList: state.launchesSimpleList,
+      hasNext: state.hasNext,
+    ));
     try {
-      final launches = await _repository.fetchLaunches(
-        query: launchesQuery,
+      final LaunchesSimpleModel loadedLaunches =
+          await _repository.fetchLaunches(
+        query: state.launchesQuery,
       );
+
+      List<LaunchModel> newList = [];
+      newList.addAll(state.launchesSimpleList);
+      if (loadedLaunches.launches != null) {
+        newList.addAll(loadedLaunches.launches!);
+      }
+
       emit(
-        LaunchesSimpleLoadedState(launches),
+        LaunchesSimpleLoadedState(
+          launchesQuery: state.launchesQuery.copyWith(
+            options: state.launchesQuery.options?.copyWith(
+              page: state.launchesQuery.options?.page == null
+                  ? 0
+                  : state.launchesQuery.options!.page! + 1,
+            ),
+          ),
+          launchesSimpleList: newList,
+          hasNext: loadedLaunches.hasNextPage ?? false,
+        ),
       );
     } on SpaceXException catch (e) {
-      emit(LaunchesSimpleErrorState(e));
+      emit(LaunchesSimpleErrorState(
+        message: e,
+        launchesQuery: state.launchesQuery,
+        launchesSimpleList: state.launchesSimpleList,
+        hasNext: state.hasNext,
+      ));
     } on Exception catch (e) {
       emit(LaunchesSimpleErrorState(
-        SpaceXException(e.toString()),
+        message: SpaceXException(
+          e.toString(),
+        ),
+        launchesQuery: state.launchesQuery,
+        launchesSimpleList: state.launchesSimpleList,
+        hasNext: state.hasNext,
       ));
     }
   }

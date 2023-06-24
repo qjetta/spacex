@@ -5,17 +5,22 @@ import 'package:spacex/ui/screens/launch_screen.dart';
 import 'package:spacex/ui/screens/past_launches_screen.dart';
 import 'package:spacex/ui/screens/upcoming_launches_screen.dart';
 
+class Navigation {
+  static const String pastLaunches = '/past-launches';
+  static const String upcomingLaunches = '/upcoming-launches';
+}
+
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorPastLaunchesKey =
-    GlobalKey<NavigatorState>(debugLabel: PastLaunchesScreen.path);
+    GlobalKey<NavigatorState>(debugLabel: Navigation.pastLaunches);
 final _shellNavigatorUpcomingKey =
-    GlobalKey<NavigatorState>(debugLabel: UpcomingLaunchesScreen.path);
+    GlobalKey<NavigatorState>(debugLabel: Navigation.upcomingLaunches);
 
 final goRouter = GoRouter(
-  initialLocation: PastLaunchesScreen.path,
+  initialLocation: Navigation.pastLaunches,
   redirect: (_, state) =>
-      state.location == '/' ? PastLaunchesScreen.path : null,
+      state.location == '/' ? Navigation.pastLaunches : null,
   // * Passing a navigatorKey causes an issue on hot reload:
   // * https://github.com/flutter/flutter/issues/113757#issuecomment-1518421380
   // * However it's still necessary otherwise the navigator pops back to
@@ -32,8 +37,8 @@ final goRouter = GoRouter(
           navigatorKey: _shellNavigatorPastLaunchesKey,
           routes: [
             GoRoute(
-              path: PastLaunchesScreen.path,
-              pageBuilder: (context, state) => const NoTransitionPage(
+              path: Navigation.pastLaunches,
+              pageBuilder: (context, state) => NoTransitionPage(
                 child: PastLaunchesScreen(),
               ),
               routes: [
@@ -49,16 +54,10 @@ final goRouter = GoRouter(
           navigatorKey: _shellNavigatorUpcomingKey,
           routes: [
             GoRoute(
-              path: UpcomingLaunchesScreen.path,
-              pageBuilder: (context, state) => const NoTransitionPage(
+              path: Navigation.upcomingLaunches,
+              pageBuilder: (context, state) => NoTransitionPage(
                 child: UpcomingLaunchesScreen(),
               ),
-              // routes: [
-              //   GoRoute(
-              //     path: 'details',
-              //     builder: (context, state) => const DetailsScreen(label: 'B'),
-              //   ),
-              // ],
             ),
           ],
         ),

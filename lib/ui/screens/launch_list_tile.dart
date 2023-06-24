@@ -14,34 +14,45 @@ class LaunchListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      horizontalTitleGap: 5,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Theme.of(context).primaryColorLight,
-          width: 1,
-        ),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      leading: launch.success == null
-          ? const Icon(Icons.question_mark)
-          : launch.success == true
-              ? const Icon(Icons.check)
-              : const Icon(Icons.check_box_outline_blank),
-      title: Text(launch.name ?? ''),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (launch.dateUtc != null)
-            Text(
-              '${DateFormat.yMMMd().format(launch.dateUtc!)} ${DateFormat.Hm().format(launch.dateUtc!)}',
-            ),
-          Text(
-            launch.details ?? '',
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+      child: ListTile(
+        horizontalTitleGap: 5,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: Theme.of(context).primaryColorLight,
+            width: 1,
           ),
-        ],
+          borderRadius: BorderRadius.circular(5),
+        ),
+        leading: createSuccessIcon(),
+        title: Text(launch.name ?? ''),
+        subtitle: createSubtitle(),
+        onTap: () => context.go('$path?id=${launch.id}'),
       ),
-      onTap: () => context.go('$path?id=${launch.id}'),
     );
+  }
+
+  Column createSubtitle() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (launch.dateUtc != null)
+          Text(
+            '${DateFormat.yMMMd().format(launch.dateUtc!)} ${DateFormat.Hm().format(launch.dateUtc!)}',
+          ),
+        Text(
+          launch.details ?? '',
+        ),
+      ],
+    );
+  }
+
+  Icon createSuccessIcon() {
+    return launch.success == null
+        ? const Icon(Icons.question_mark)
+        : launch.success == true
+            ? const Icon(Icons.check)
+            : const Icon(Icons.check_box_outline_blank);
   }
 }

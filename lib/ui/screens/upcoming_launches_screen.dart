@@ -1,28 +1,35 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'package:spacex/controller/go_router.dart';
+import 'package:spacex/model/launches_query.dart';
+import 'package:spacex/model/repository.dart';
+import 'package:spacex/ui/screens/launches_screen.dart';
 
-class UpcomingLaunchesScreen extends StatelessWidget {
-  const UpcomingLaunchesScreen({Key? key}) : super(key: key);
-
-  static const path = '/upcoming-launches';
+class UpcomingLaunchesScreen extends LaunchesScreen {
+  UpcomingLaunchesScreen({
+    super.key,
+  }) : super(
+          path: Navigation.pastLaunches,
+          launchesQuery: LaunchesQuery(
+            options: LaunchesQueryOptions(
+              limit: IRepository.defaultPageSize,
+              sort: {'date_utc': SortDirection.asc},
+              page: 1,
+              select: [
+                'id',
+                'name',
+                'rocket',
+                'details',
+                'date_utc',
+                'success',
+              ],
+            ),
+            queryData: const LaunchesQueryData(
+              upcoming: true,
+              rocket: null,
+            ),
+          ),
+        );
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text('upcoming.launches.body'.tr(),
-                style: Theme.of(context).textTheme.titleLarge),
-          ],
-        ),
-      ),
-    );
-  }
-
   get title => 'upcoming.launches.title'.tr();
 }

@@ -6,14 +6,19 @@ import 'package:spacex/model/launches_query.dart';
 import 'package:spacex/model/launches_simple_model.dart';
 import 'package:http/http.dart' as http;
 
-abstract class IRepository {}
+abstract class IRepository {
+  static var defaultPageSize = 5;
 
-class Repository {
+  Future<LaunchesSimpleModel> fetchLaunches({required LaunchesQuery query});
+}
+
+class Repository implements IRepository {
   final http.Client _httpClient = http.Client();
   final url = 'https://api.spacexdata.com/v4/launches/query';
   static const contentTypeName = 'Content-Type';
   static const contentTypeValue = 'application/json';
 
+  @override
   Future<LaunchesSimpleModel> fetchLaunches(
       {required LaunchesQuery query}) async {
     final headers = <String, String>{
