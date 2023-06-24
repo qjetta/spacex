@@ -2,17 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:spacex/controller/go_router.dart';
 import 'package:spacex/model/launches/launches_query.dart';
 import 'package:spacex/model/repository.dart';
-import 'package:spacex/ui/screens/launches_screen.dart';
+import 'package:spacex/ui/screens/launches/launches_screen.dart';
 
-class PastLaunchesScreen extends LaunchesScreen {
-  PastLaunchesScreen({
+class UpcomingLaunchesScreen extends LaunchesScreen {
+  UpcomingLaunchesScreen({
     super.key,
   }) : super(
           path: Navigation.pastLaunches,
           launchesQuery: LaunchesQuery(
             options: LaunchesQueryOptions(
               limit: IRepository.defaultPageSize,
-              sort: {'date_utc': SortDirection.desc},
+              sort: {'date_utc': ESortDirection.asc},
               page: 1,
               select: [
                 'id',
@@ -21,15 +21,16 @@ class PastLaunchesScreen extends LaunchesScreen {
                 'details',
                 'date_utc',
                 'success',
+                'launchpad'
               ],
             ),
-            queryData: LaunchesQueryData(
-              dateQuery: DateQuery(gte: null, lte: DateTime.now().toUtc()),
+            queryData: const LaunchesQueryData(
+              upcoming: true,
               rocket: null,
             ),
           ),
         );
 
   @override
-  get title => 'past.launches.title'.tr();
+  get title => 'launches.upcoming.title'.tr();
 }

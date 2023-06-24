@@ -222,9 +222,10 @@ LaunchesQueryData _$LaunchesQueryDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$LaunchesQueryData {
   @JsonKey(name: 'date_utc')
-  DateQuery? get dateQuery => throw _privateConstructorUsedError;
+  LaunchesQueryDateFilter? get dateQuery => throw _privateConstructorUsedError;
   String? get rocket => throw _privateConstructorUsedError;
   bool? get upcoming => throw _privateConstructorUsedError;
+  NameFilter? get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -239,11 +240,13 @@ abstract class $LaunchesQueryDataCopyWith<$Res> {
       _$LaunchesQueryDataCopyWithImpl<$Res, LaunchesQueryData>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'date_utc') DateQuery? dateQuery,
+      {@JsonKey(name: 'date_utc') LaunchesQueryDateFilter? dateQuery,
       String? rocket,
-      bool? upcoming});
+      bool? upcoming,
+      NameFilter? name});
 
-  $DateQueryCopyWith<$Res>? get dateQuery;
+  $LaunchesQueryDateFilterCopyWith<$Res>? get dateQuery;
+  $NameFilterCopyWith<$Res>? get name;
 }
 
 /// @nodoc
@@ -262,12 +265,13 @@ class _$LaunchesQueryDataCopyWithImpl<$Res, $Val extends LaunchesQueryData>
     Object? dateQuery = freezed,
     Object? rocket = freezed,
     Object? upcoming = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
       dateQuery: freezed == dateQuery
           ? _value.dateQuery
           : dateQuery // ignore: cast_nullable_to_non_nullable
-              as DateQuery?,
+              as LaunchesQueryDateFilter?,
       rocket: freezed == rocket
           ? _value.rocket
           : rocket // ignore: cast_nullable_to_non_nullable
@@ -276,18 +280,34 @@ class _$LaunchesQueryDataCopyWithImpl<$Res, $Val extends LaunchesQueryData>
           ? _value.upcoming
           : upcoming // ignore: cast_nullable_to_non_nullable
               as bool?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as NameFilter?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $DateQueryCopyWith<$Res>? get dateQuery {
+  $LaunchesQueryDateFilterCopyWith<$Res>? get dateQuery {
     if (_value.dateQuery == null) {
       return null;
     }
 
-    return $DateQueryCopyWith<$Res>(_value.dateQuery!, (value) {
+    return $LaunchesQueryDateFilterCopyWith<$Res>(_value.dateQuery!, (value) {
       return _then(_value.copyWith(dateQuery: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $NameFilterCopyWith<$Res>? get name {
+    if (_value.name == null) {
+      return null;
+    }
+
+    return $NameFilterCopyWith<$Res>(_value.name!, (value) {
+      return _then(_value.copyWith(name: value) as $Val);
     });
   }
 }
@@ -301,12 +321,15 @@ abstract class _$$_LauncherQueryDataCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'date_utc') DateQuery? dateQuery,
+      {@JsonKey(name: 'date_utc') LaunchesQueryDateFilter? dateQuery,
       String? rocket,
-      bool? upcoming});
+      bool? upcoming,
+      NameFilter? name});
 
   @override
-  $DateQueryCopyWith<$Res>? get dateQuery;
+  $LaunchesQueryDateFilterCopyWith<$Res>? get dateQuery;
+  @override
+  $NameFilterCopyWith<$Res>? get name;
 }
 
 /// @nodoc
@@ -323,12 +346,13 @@ class __$$_LauncherQueryDataCopyWithImpl<$Res>
     Object? dateQuery = freezed,
     Object? rocket = freezed,
     Object? upcoming = freezed,
+    Object? name = freezed,
   }) {
     return _then(_$_LauncherQueryData(
       dateQuery: freezed == dateQuery
           ? _value.dateQuery
           : dateQuery // ignore: cast_nullable_to_non_nullable
-              as DateQuery?,
+              as LaunchesQueryDateFilter?,
       rocket: freezed == rocket
           ? _value.rocket
           : rocket // ignore: cast_nullable_to_non_nullable
@@ -337,6 +361,10 @@ class __$$_LauncherQueryDataCopyWithImpl<$Res>
           ? _value.upcoming
           : upcoming // ignore: cast_nullable_to_non_nullable
               as bool?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as NameFilter?,
     ));
   }
 }
@@ -346,22 +374,27 @@ class __$$_LauncherQueryDataCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class _$_LauncherQueryData implements _LauncherQueryData {
   const _$_LauncherQueryData(
-      {@JsonKey(name: 'date_utc') this.dateQuery, this.rocket, this.upcoming});
+      {@JsonKey(name: 'date_utc') this.dateQuery,
+      this.rocket,
+      this.upcoming,
+      this.name});
 
   factory _$_LauncherQueryData.fromJson(Map<String, dynamic> json) =>
       _$$_LauncherQueryDataFromJson(json);
 
   @override
   @JsonKey(name: 'date_utc')
-  final DateQuery? dateQuery;
+  final LaunchesQueryDateFilter? dateQuery;
   @override
   final String? rocket;
   @override
   final bool? upcoming;
+  @override
+  final NameFilter? name;
 
   @override
   String toString() {
-    return 'LaunchesQueryData(dateQuery: $dateQuery, rocket: $rocket, upcoming: $upcoming)';
+    return 'LaunchesQueryData(dateQuery: $dateQuery, rocket: $rocket, upcoming: $upcoming, name: $name)';
   }
 
   @override
@@ -373,12 +406,14 @@ class _$_LauncherQueryData implements _LauncherQueryData {
                 other.dateQuery == dateQuery) &&
             (identical(other.rocket, rocket) || other.rocket == rocket) &&
             (identical(other.upcoming, upcoming) ||
-                other.upcoming == upcoming));
+                other.upcoming == upcoming) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, dateQuery, rocket, upcoming);
+  int get hashCode =>
+      Object.hash(runtimeType, dateQuery, rocket, upcoming, name);
 
   @JsonKey(ignore: true)
   @override
@@ -397,32 +432,204 @@ class _$_LauncherQueryData implements _LauncherQueryData {
 
 abstract class _LauncherQueryData implements LaunchesQueryData {
   const factory _LauncherQueryData(
-      {@JsonKey(name: 'date_utc') final DateQuery? dateQuery,
+      {@JsonKey(name: 'date_utc') final LaunchesQueryDateFilter? dateQuery,
       final String? rocket,
-      final bool? upcoming}) = _$_LauncherQueryData;
+      final bool? upcoming,
+      final NameFilter? name}) = _$_LauncherQueryData;
 
   factory _LauncherQueryData.fromJson(Map<String, dynamic> json) =
       _$_LauncherQueryData.fromJson;
 
   @override
   @JsonKey(name: 'date_utc')
-  DateQuery? get dateQuery;
+  LaunchesQueryDateFilter? get dateQuery;
   @override
   String? get rocket;
   @override
   bool? get upcoming;
+  @override
+  NameFilter? get name;
   @override
   @JsonKey(ignore: true)
   _$$_LauncherQueryDataCopyWith<_$_LauncherQueryData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-DateQuery _$DateQueryFromJson(Map<String, dynamic> json) {
-  return _DateQuery.fromJson(json);
+NameFilter _$NameFilterFromJson(Map<String, dynamic> json) {
+  return _NameFilter.fromJson(json);
 }
 
 /// @nodoc
-mixin _$DateQuery {
+mixin _$NameFilter {
+  @JsonKey(name: '\$regex')
+  String? get regex => throw _privateConstructorUsedError;
+  @JsonKey(name: '\$options')
+  String? get options => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $NameFilterCopyWith<NameFilter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $NameFilterCopyWith<$Res> {
+  factory $NameFilterCopyWith(
+          NameFilter value, $Res Function(NameFilter) then) =
+      _$NameFilterCopyWithImpl<$Res, NameFilter>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: '\$regex') String? regex,
+      @JsonKey(name: '\$options') String? options});
+}
+
+/// @nodoc
+class _$NameFilterCopyWithImpl<$Res, $Val extends NameFilter>
+    implements $NameFilterCopyWith<$Res> {
+  _$NameFilterCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? regex = freezed,
+    Object? options = freezed,
+  }) {
+    return _then(_value.copyWith(
+      regex: freezed == regex
+          ? _value.regex
+          : regex // ignore: cast_nullable_to_non_nullable
+              as String?,
+      options: freezed == options
+          ? _value.options
+          : options // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_NameFilterCopyWith<$Res>
+    implements $NameFilterCopyWith<$Res> {
+  factory _$$_NameFilterCopyWith(
+          _$_NameFilter value, $Res Function(_$_NameFilter) then) =
+      __$$_NameFilterCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: '\$regex') String? regex,
+      @JsonKey(name: '\$options') String? options});
+}
+
+/// @nodoc
+class __$$_NameFilterCopyWithImpl<$Res>
+    extends _$NameFilterCopyWithImpl<$Res, _$_NameFilter>
+    implements _$$_NameFilterCopyWith<$Res> {
+  __$$_NameFilterCopyWithImpl(
+      _$_NameFilter _value, $Res Function(_$_NameFilter) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? regex = freezed,
+    Object? options = freezed,
+  }) {
+    return _then(_$_NameFilter(
+      regex: freezed == regex
+          ? _value.regex
+          : regex // ignore: cast_nullable_to_non_nullable
+              as String?,
+      options: freezed == options
+          ? _value.options
+          : options // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class _$_NameFilter implements _NameFilter {
+  const _$_NameFilter(
+      {@JsonKey(name: '\$regex') required this.regex,
+      @JsonKey(name: '\$options') required this.options});
+
+  factory _$_NameFilter.fromJson(Map<String, dynamic> json) =>
+      _$$_NameFilterFromJson(json);
+
+  @override
+  @JsonKey(name: '\$regex')
+  final String? regex;
+  @override
+  @JsonKey(name: '\$options')
+  final String? options;
+
+  @override
+  String toString() {
+    return 'NameFilter(regex: $regex, options: $options)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_NameFilter &&
+            (identical(other.regex, regex) || other.regex == regex) &&
+            (identical(other.options, options) || other.options == options));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, regex, options);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_NameFilterCopyWith<_$_NameFilter> get copyWith =>
+      __$$_NameFilterCopyWithImpl<_$_NameFilter>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_NameFilterToJson(
+      this,
+    );
+  }
+}
+
+abstract class _NameFilter implements NameFilter {
+  const factory _NameFilter(
+          {@JsonKey(name: '\$regex') required final String? regex,
+          @JsonKey(name: '\$options') required final String? options}) =
+      _$_NameFilter;
+
+  factory _NameFilter.fromJson(Map<String, dynamic> json) =
+      _$_NameFilter.fromJson;
+
+  @override
+  @JsonKey(name: '\$regex')
+  String? get regex;
+  @override
+  @JsonKey(name: '\$options')
+  String? get options;
+  @override
+  @JsonKey(ignore: true)
+  _$$_NameFilterCopyWith<_$_NameFilter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+LaunchesQueryDateFilter _$LaunchesQueryDateFilterFromJson(
+    Map<String, dynamic> json) {
+  return _LaunchesQueryDateFilter.fromJson(json);
+}
+
+/// @nodoc
+mixin _$LaunchesQueryDateFilter {
   @JsonKey(name: '\$gte')
   DateTime? get gte => throw _privateConstructorUsedError;
   @JsonKey(name: '\$lte')
@@ -430,14 +637,15 @@ mixin _$DateQuery {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DateQueryCopyWith<DateQuery> get copyWith =>
+  $LaunchesQueryDateFilterCopyWith<LaunchesQueryDateFilter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DateQueryCopyWith<$Res> {
-  factory $DateQueryCopyWith(DateQuery value, $Res Function(DateQuery) then) =
-      _$DateQueryCopyWithImpl<$Res, DateQuery>;
+abstract class $LaunchesQueryDateFilterCopyWith<$Res> {
+  factory $LaunchesQueryDateFilterCopyWith(LaunchesQueryDateFilter value,
+          $Res Function(LaunchesQueryDateFilter) then) =
+      _$LaunchesQueryDateFilterCopyWithImpl<$Res, LaunchesQueryDateFilter>;
   @useResult
   $Res call(
       {@JsonKey(name: '\$gte') DateTime? gte,
@@ -445,9 +653,10 @@ abstract class $DateQueryCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DateQueryCopyWithImpl<$Res, $Val extends DateQuery>
-    implements $DateQueryCopyWith<$Res> {
-  _$DateQueryCopyWithImpl(this._value, this._then);
+class _$LaunchesQueryDateFilterCopyWithImpl<$Res,
+        $Val extends LaunchesQueryDateFilter>
+    implements $LaunchesQueryDateFilterCopyWith<$Res> {
+  _$LaunchesQueryDateFilterCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -474,10 +683,11 @@ class _$DateQueryCopyWithImpl<$Res, $Val extends DateQuery>
 }
 
 /// @nodoc
-abstract class _$$_DateQueryCopyWith<$Res> implements $DateQueryCopyWith<$Res> {
-  factory _$$_DateQueryCopyWith(
-          _$_DateQuery value, $Res Function(_$_DateQuery) then) =
-      __$$_DateQueryCopyWithImpl<$Res>;
+abstract class _$$_LaunchesQueryDateFilterCopyWith<$Res>
+    implements $LaunchesQueryDateFilterCopyWith<$Res> {
+  factory _$$_LaunchesQueryDateFilterCopyWith(_$_LaunchesQueryDateFilter value,
+          $Res Function(_$_LaunchesQueryDateFilter) then) =
+      __$$_LaunchesQueryDateFilterCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -486,11 +696,12 @@ abstract class _$$_DateQueryCopyWith<$Res> implements $DateQueryCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_DateQueryCopyWithImpl<$Res>
-    extends _$DateQueryCopyWithImpl<$Res, _$_DateQuery>
-    implements _$$_DateQueryCopyWith<$Res> {
-  __$$_DateQueryCopyWithImpl(
-      _$_DateQuery _value, $Res Function(_$_DateQuery) _then)
+class __$$_LaunchesQueryDateFilterCopyWithImpl<$Res>
+    extends _$LaunchesQueryDateFilterCopyWithImpl<$Res,
+        _$_LaunchesQueryDateFilter>
+    implements _$$_LaunchesQueryDateFilterCopyWith<$Res> {
+  __$$_LaunchesQueryDateFilterCopyWithImpl(_$_LaunchesQueryDateFilter _value,
+      $Res Function(_$_LaunchesQueryDateFilter) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -499,7 +710,7 @@ class __$$_DateQueryCopyWithImpl<$Res>
     Object? gte = freezed,
     Object? lte = freezed,
   }) {
-    return _then(_$_DateQuery(
+    return _then(_$_LaunchesQueryDateFilter(
       gte: freezed == gte
           ? _value.gte
           : gte // ignore: cast_nullable_to_non_nullable
@@ -515,12 +726,12 @@ class __$$_DateQueryCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class _$_DateQuery implements _DateQuery {
-  _$_DateQuery(
+class _$_LaunchesQueryDateFilter implements _LaunchesQueryDateFilter {
+  _$_LaunchesQueryDateFilter(
       {@JsonKey(name: '\$gte') this.gte, @JsonKey(name: '\$lte') this.lte});
 
-  factory _$_DateQuery.fromJson(Map<String, dynamic> json) =>
-      _$$_DateQueryFromJson(json);
+  factory _$_LaunchesQueryDateFilter.fromJson(Map<String, dynamic> json) =>
+      _$$_LaunchesQueryDateFilterFromJson(json);
 
   @override
   @JsonKey(name: '\$gte')
@@ -531,14 +742,14 @@ class _$_DateQuery implements _DateQuery {
 
   @override
   String toString() {
-    return 'DateQuery(gte: $gte, lte: $lte)';
+    return 'LaunchesQueryDateFilter(gte: $gte, lte: $lte)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DateQuery &&
+            other is _$_LaunchesQueryDateFilter &&
             (identical(other.gte, gte) || other.gte == gte) &&
             (identical(other.lte, lte) || other.lte == lte));
   }
@@ -550,24 +761,27 @@ class _$_DateQuery implements _DateQuery {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DateQueryCopyWith<_$_DateQuery> get copyWith =>
-      __$$_DateQueryCopyWithImpl<_$_DateQuery>(this, _$identity);
+  _$$_LaunchesQueryDateFilterCopyWith<_$_LaunchesQueryDateFilter>
+      get copyWith =>
+          __$$_LaunchesQueryDateFilterCopyWithImpl<_$_LaunchesQueryDateFilter>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DateQueryToJson(
+    return _$$_LaunchesQueryDateFilterToJson(
       this,
     );
   }
 }
 
-abstract class _DateQuery implements DateQuery {
-  factory _DateQuery(
-      {@JsonKey(name: '\$gte') final DateTime? gte,
-      @JsonKey(name: '\$lte') final DateTime? lte}) = _$_DateQuery;
+abstract class _LaunchesQueryDateFilter implements LaunchesQueryDateFilter {
+  factory _LaunchesQueryDateFilter(
+          {@JsonKey(name: '\$gte') final DateTime? gte,
+          @JsonKey(name: '\$lte') final DateTime? lte}) =
+      _$_LaunchesQueryDateFilter;
 
-  factory _DateQuery.fromJson(Map<String, dynamic> json) =
-      _$_DateQuery.fromJson;
+  factory _LaunchesQueryDateFilter.fromJson(Map<String, dynamic> json) =
+      _$_LaunchesQueryDateFilter.fromJson;
 
   @override
   @JsonKey(name: '\$gte')
@@ -577,8 +791,8 @@ abstract class _DateQuery implements DateQuery {
   DateTime? get lte;
   @override
   @JsonKey(ignore: true)
-  _$$_DateQueryCopyWith<_$_DateQuery> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_LaunchesQueryDateFilterCopyWith<_$_LaunchesQueryDateFilter>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 LaunchesQueryOptions _$LaunchesQueryOptionsFromJson(Map<String, dynamic> json) {
@@ -588,7 +802,7 @@ LaunchesQueryOptions _$LaunchesQueryOptionsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$LaunchesQueryOptions {
   List<String>? get select => throw _privateConstructorUsedError;
-  Map<String, SortDirection>? get sort => throw _privateConstructorUsedError;
+  Map<String, ESortDirection>? get sort => throw _privateConstructorUsedError;
   int? get limit => throw _privateConstructorUsedError;
   int? get page => throw _privateConstructorUsedError;
 
@@ -606,7 +820,7 @@ abstract class $LaunchesQueryOptionsCopyWith<$Res> {
   @useResult
   $Res call(
       {List<String>? select,
-      Map<String, SortDirection>? sort,
+      Map<String, ESortDirection>? sort,
       int? limit,
       int? page});
 }
@@ -638,7 +852,7 @@ class _$LaunchesQueryOptionsCopyWithImpl<$Res,
       sort: freezed == sort
           ? _value.sort
           : sort // ignore: cast_nullable_to_non_nullable
-              as Map<String, SortDirection>?,
+              as Map<String, ESortDirection>?,
       limit: freezed == limit
           ? _value.limit
           : limit // ignore: cast_nullable_to_non_nullable
@@ -661,7 +875,7 @@ abstract class _$$_LaunchesQueryOptionsCopyWith<$Res>
   @useResult
   $Res call(
       {List<String>? select,
-      Map<String, SortDirection>? sort,
+      Map<String, ESortDirection>? sort,
       int? limit,
       int? page});
 }
@@ -690,7 +904,7 @@ class __$$_LaunchesQueryOptionsCopyWithImpl<$Res>
       sort: freezed == sort
           ? _value._sort
           : sort // ignore: cast_nullable_to_non_nullable
-              as Map<String, SortDirection>?,
+              as Map<String, ESortDirection>?,
       limit: freezed == limit
           ? _value.limit
           : limit // ignore: cast_nullable_to_non_nullable
@@ -709,7 +923,7 @@ class __$$_LaunchesQueryOptionsCopyWithImpl<$Res>
 class _$_LaunchesQueryOptions implements _LaunchesQueryOptions {
   _$_LaunchesQueryOptions(
       {final List<String>? select,
-      final Map<String, SortDirection>? sort,
+      final Map<String, ESortDirection>? sort,
       this.limit,
       this.page})
       : _select = select,
@@ -728,9 +942,9 @@ class _$_LaunchesQueryOptions implements _LaunchesQueryOptions {
     return EqualUnmodifiableListView(value);
   }
 
-  final Map<String, SortDirection>? _sort;
+  final Map<String, ESortDirection>? _sort;
   @override
-  Map<String, SortDirection>? get sort {
+  Map<String, ESortDirection>? get sort {
     final value = _sort;
     if (value == null) return null;
     if (_sort is EqualUnmodifiableMapView) return _sort;
@@ -786,7 +1000,7 @@ class _$_LaunchesQueryOptions implements _LaunchesQueryOptions {
 abstract class _LaunchesQueryOptions implements LaunchesQueryOptions {
   factory _LaunchesQueryOptions(
       {final List<String>? select,
-      final Map<String, SortDirection>? sort,
+      final Map<String, ESortDirection>? sort,
       final int? limit,
       final int? page}) = _$_LaunchesQueryOptions;
 
@@ -796,7 +1010,7 @@ abstract class _LaunchesQueryOptions implements LaunchesQueryOptions {
   @override
   List<String>? get select;
   @override
-  Map<String, SortDirection>? get sort;
+  Map<String, ESortDirection>? get sort;
   @override
   int? get limit;
   @override

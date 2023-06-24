@@ -50,7 +50,7 @@ class SpaceXApp extends StatelessWidget {
       locale: context.locale,
       routerConfig: goRouter,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.lightBlue),
+      theme: ThemeData(primarySwatch: Colors.blue),
     );
   }
 }

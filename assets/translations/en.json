@@ -1,12 +1,27 @@
 {
-    "past": {
-        "launches": {
-            "title": "Past Launches"
-        }
-    },
-    "upcoming": {
-        "launches": {
-            "title": "Upcoming Launches"
+    "launches": {
+        "past": {
+            "title": "Past Launches",
+            "rail_title": "Past\nLaunches"
+        },
+        "upcoming": {
+            "title": "Upcoming Launches",
+            "rail_title": "Upcoming\nLaunches"
+        },
+        "search_bar": {
+            "help_text": " Search by name"
+        },
+        "sort": {
+            "title": "Sort by:",
+            "name": "Name",
+            "date_utc": "UTC Date",
+            "rocket": "Rocket",
+            "success": "Success",
+            "launchpad": "Launchpad",
+            "type": {
+                "asc": "Ascending",
+                "desc": "Descending"
+            }
         }
     },
     "launch": {

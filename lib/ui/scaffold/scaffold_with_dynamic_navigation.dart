@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacex/ui/scaffold/navigation_and_destination.dart';
@@ -29,11 +30,13 @@ class ScaffoldWithDynamicNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     var titlesAndIcons = [
       TitleAndIcon(
-        title: 'Past Launches',
+        title: 'launches.past.title'.tr(),
+        railTitle: 'launches.past.rail_title'.tr(),
         icon: Icons.chevron_left,
       ),
       TitleAndIcon(
-        title: 'Upcoming Launches',
+        title: 'launches.upcoming.title'.tr(),
+        railTitle: 'launches.upcoming.rail_title'.tr(),
         icon: Icons.chevron_right,
       ),
     ];

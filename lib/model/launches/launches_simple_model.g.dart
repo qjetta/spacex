@@ -9,7 +9,7 @@ part of 'launches_simple_model.dart';
 _$_LaunchesModel _$$_LaunchesModelFromJson(Map<String, dynamic> json) =>
     _$_LaunchesModel(
       launches: (json['docs'] as List<dynamic>?)
-          ?.map((e) => LaunchModel.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => SimpleLaunch.fromJson(e as Map<String, dynamic>))
           .toList(),
       totalDocs: json['totalDocs'] as int?,
       limit: json['limit'] as int?,
@@ -33,9 +33,10 @@ _$_LaunchModel _$$_LaunchModelFromJson(Map<String, dynamic> json) =>
       rocket: json['rocket'] as String?,
       details: json['details'] as String?,
       name: json['name'] as String?,
-      dateUtc: json['dateUtc'] == null
+      launchpad: json['launchpad'] as String?,
+      dateUtc: json['date_utc'] == null
           ? null
-          : DateTime.parse(json['dateUtc'] as String),
+          : DateTime.parse(json['date_utc'] as String),
       id: json['id'] as String?,
       success: json['success'] as bool?,
     );
@@ -45,7 +46,8 @@ Map<String, dynamic> _$$_LaunchModelToJson(_$_LaunchModel instance) =>
       'rocket': instance.rocket,
       'details': instance.details,
       'name': instance.name,
-      'dateUtc': instance.dateUtc?.toIso8601String(),
+      'launchpad': instance.launchpad,
+      'date_utc': instance.dateUtc?.toIso8601String(),
       'id': instance.id,
       'success': instance.success,
     };

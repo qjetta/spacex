@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 abstract class IRepository {
   static var defaultPageSize = 10;
 
-  Future<LaunchesSimpleModel> fetchLaunches({required LaunchesQuery query});
+  Future<SimpleLaunches> fetchLaunches({required LaunchesQuery query});
 }
 
 class Repository implements IRepository {
@@ -19,8 +19,7 @@ class Repository implements IRepository {
   static const contentTypeValue = 'application/json';
 
   @override
-  Future<LaunchesSimpleModel> fetchLaunches(
-      {required LaunchesQuery query}) async {
+  Future<SimpleLaunches> fetchLaunches({required LaunchesQuery query}) async {
     final headers = <String, String>{
       contentTypeName: contentTypeValue,
     };
@@ -35,7 +34,7 @@ class Repository implements IRepository {
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
         logger.d(jsonResponse);
-        return LaunchesSimpleModel.fromJson(jsonResponse);
+        return SimpleLaunches.fromJson(jsonResponse);
       } else {
         String msg = 'Failed to fetch launches: ${response.statusCode}';
         logger.e(msg);

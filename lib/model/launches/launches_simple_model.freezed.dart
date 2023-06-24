@@ -14,14 +14,14 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-LaunchesSimpleModel _$LaunchesSimpleModelFromJson(Map<String, dynamic> json) {
+SimpleLaunches _$SimpleLaunchesFromJson(Map<String, dynamic> json) {
   return _LaunchesModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$LaunchesSimpleModel {
+mixin _$SimpleLaunches {
   @JsonKey(name: 'docs')
-  List<LaunchModel>? get launches => throw _privateConstructorUsedError;
+  List<SimpleLaunch>? get launches => throw _privateConstructorUsedError;
   int? get totalDocs => throw _privateConstructorUsedError;
   int? get limit => throw _privateConstructorUsedError;
   int? get totalPages => throw _privateConstructorUsedError;
@@ -30,18 +30,18 @@ mixin _$LaunchesSimpleModel {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LaunchesSimpleModelCopyWith<LaunchesSimpleModel> get copyWith =>
+  $SimpleLaunchesCopyWith<SimpleLaunches> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LaunchesSimpleModelCopyWith<$Res> {
-  factory $LaunchesSimpleModelCopyWith(
-          LaunchesSimpleModel value, $Res Function(LaunchesSimpleModel) then) =
-      _$LaunchesSimpleModelCopyWithImpl<$Res, LaunchesSimpleModel>;
+abstract class $SimpleLaunchesCopyWith<$Res> {
+  factory $SimpleLaunchesCopyWith(
+          SimpleLaunches value, $Res Function(SimpleLaunches) then) =
+      _$SimpleLaunchesCopyWithImpl<$Res, SimpleLaunches>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'docs') List<LaunchModel>? launches,
+      {@JsonKey(name: 'docs') List<SimpleLaunch>? launches,
       int? totalDocs,
       int? limit,
       int? totalPages,
@@ -50,9 +50,9 @@ abstract class $LaunchesSimpleModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LaunchesSimpleModelCopyWithImpl<$Res, $Val extends LaunchesSimpleModel>
-    implements $LaunchesSimpleModelCopyWith<$Res> {
-  _$LaunchesSimpleModelCopyWithImpl(this._value, this._then);
+class _$SimpleLaunchesCopyWithImpl<$Res, $Val extends SimpleLaunches>
+    implements $SimpleLaunchesCopyWith<$Res> {
+  _$SimpleLaunchesCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -73,7 +73,7 @@ class _$LaunchesSimpleModelCopyWithImpl<$Res, $Val extends LaunchesSimpleModel>
       launches: freezed == launches
           ? _value.launches
           : launches // ignore: cast_nullable_to_non_nullable
-              as List<LaunchModel>?,
+              as List<SimpleLaunch>?,
       totalDocs: freezed == totalDocs
           ? _value.totalDocs
           : totalDocs // ignore: cast_nullable_to_non_nullable
@@ -100,14 +100,14 @@ class _$LaunchesSimpleModelCopyWithImpl<$Res, $Val extends LaunchesSimpleModel>
 
 /// @nodoc
 abstract class _$$_LaunchesModelCopyWith<$Res>
-    implements $LaunchesSimpleModelCopyWith<$Res> {
+    implements $SimpleLaunchesCopyWith<$Res> {
   factory _$$_LaunchesModelCopyWith(
           _$_LaunchesModel value, $Res Function(_$_LaunchesModel) then) =
       __$$_LaunchesModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'docs') List<LaunchModel>? launches,
+      {@JsonKey(name: 'docs') List<SimpleLaunch>? launches,
       int? totalDocs,
       int? limit,
       int? totalPages,
@@ -117,7 +117,7 @@ abstract class _$$_LaunchesModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_LaunchesModelCopyWithImpl<$Res>
-    extends _$LaunchesSimpleModelCopyWithImpl<$Res, _$_LaunchesModel>
+    extends _$SimpleLaunchesCopyWithImpl<$Res, _$_LaunchesModel>
     implements _$$_LaunchesModelCopyWith<$Res> {
   __$$_LaunchesModelCopyWithImpl(
       _$_LaunchesModel _value, $Res Function(_$_LaunchesModel) _then)
@@ -137,7 +137,7 @@ class __$$_LaunchesModelCopyWithImpl<$Res>
       launches: freezed == launches
           ? _value._launches
           : launches // ignore: cast_nullable_to_non_nullable
-              as List<LaunchModel>?,
+              as List<SimpleLaunch>?,
       totalDocs: freezed == totalDocs
           ? _value.totalDocs
           : totalDocs // ignore: cast_nullable_to_non_nullable
@@ -167,7 +167,7 @@ class __$$_LaunchesModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_LaunchesModel implements _LaunchesModel {
   _$_LaunchesModel(
-      {@JsonKey(name: 'docs') final List<LaunchModel>? launches,
+      {@JsonKey(name: 'docs') final List<SimpleLaunch>? launches,
       this.totalDocs,
       this.limit,
       this.totalPages,
@@ -178,10 +178,10 @@ class _$_LaunchesModel implements _LaunchesModel {
   factory _$_LaunchesModel.fromJson(Map<String, dynamic> json) =>
       _$$_LaunchesModelFromJson(json);
 
-  final List<LaunchModel>? _launches;
+  final List<SimpleLaunch>? _launches;
   @override
   @JsonKey(name: 'docs')
-  List<LaunchModel>? get launches {
+  List<SimpleLaunch>? get launches {
     final value = _launches;
     if (value == null) return null;
     if (_launches is EqualUnmodifiableListView) return _launches;
@@ -202,7 +202,7 @@ class _$_LaunchesModel implements _LaunchesModel {
 
   @override
   String toString() {
-    return 'LaunchesSimpleModel(launches: $launches, totalDocs: $totalDocs, limit: $limit, totalPages: $totalPages, page: $page, hasNextPage: $hasNextPage)';
+    return 'SimpleLaunches(launches: $launches, totalDocs: $totalDocs, limit: $limit, totalPages: $totalPages, page: $page, hasNextPage: $hasNextPage)';
   }
 
   @override
@@ -246,9 +246,9 @@ class _$_LaunchesModel implements _LaunchesModel {
   }
 }
 
-abstract class _LaunchesModel implements LaunchesSimpleModel {
+abstract class _LaunchesModel implements SimpleLaunches {
   factory _LaunchesModel(
-      {@JsonKey(name: 'docs') final List<LaunchModel>? launches,
+      {@JsonKey(name: 'docs') final List<SimpleLaunch>? launches,
       final int? totalDocs,
       final int? limit,
       final int? totalPages,
@@ -260,7 +260,7 @@ abstract class _LaunchesModel implements LaunchesSimpleModel {
 
   @override
   @JsonKey(name: 'docs')
-  List<LaunchModel>? get launches;
+  List<SimpleLaunch>? get launches;
   @override
   int? get totalDocs;
   @override
@@ -277,44 +277,47 @@ abstract class _LaunchesModel implements LaunchesSimpleModel {
       throw _privateConstructorUsedError;
 }
 
-LaunchModel _$LaunchModelFromJson(Map<String, dynamic> json) {
+SimpleLaunch _$SimpleLaunchFromJson(Map<String, dynamic> json) {
   return _LaunchModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$LaunchModel {
+mixin _$SimpleLaunch {
   String? get rocket => throw _privateConstructorUsedError;
   String? get details => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
+  String? get launchpad => throw _privateConstructorUsedError;
+  @JsonKey(name: 'date_utc')
   DateTime? get dateUtc => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
   bool? get success => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LaunchModelCopyWith<LaunchModel> get copyWith =>
+  $SimpleLaunchCopyWith<SimpleLaunch> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LaunchModelCopyWith<$Res> {
-  factory $LaunchModelCopyWith(
-          LaunchModel value, $Res Function(LaunchModel) then) =
-      _$LaunchModelCopyWithImpl<$Res, LaunchModel>;
+abstract class $SimpleLaunchCopyWith<$Res> {
+  factory $SimpleLaunchCopyWith(
+          SimpleLaunch value, $Res Function(SimpleLaunch) then) =
+      _$SimpleLaunchCopyWithImpl<$Res, SimpleLaunch>;
   @useResult
   $Res call(
       {String? rocket,
       String? details,
       String? name,
-      DateTime? dateUtc,
+      String? launchpad,
+      @JsonKey(name: 'date_utc') DateTime? dateUtc,
       String? id,
       bool? success});
 }
 
 /// @nodoc
-class _$LaunchModelCopyWithImpl<$Res, $Val extends LaunchModel>
-    implements $LaunchModelCopyWith<$Res> {
-  _$LaunchModelCopyWithImpl(this._value, this._then);
+class _$SimpleLaunchCopyWithImpl<$Res, $Val extends SimpleLaunch>
+    implements $SimpleLaunchCopyWith<$Res> {
+  _$SimpleLaunchCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -327,6 +330,7 @@ class _$LaunchModelCopyWithImpl<$Res, $Val extends LaunchModel>
     Object? rocket = freezed,
     Object? details = freezed,
     Object? name = freezed,
+    Object? launchpad = freezed,
     Object? dateUtc = freezed,
     Object? id = freezed,
     Object? success = freezed,
@@ -343,6 +347,10 @@ class _$LaunchModelCopyWithImpl<$Res, $Val extends LaunchModel>
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      launchpad: freezed == launchpad
+          ? _value.launchpad
+          : launchpad // ignore: cast_nullable_to_non_nullable
               as String?,
       dateUtc: freezed == dateUtc
           ? _value.dateUtc
@@ -362,7 +370,7 @@ class _$LaunchModelCopyWithImpl<$Res, $Val extends LaunchModel>
 
 /// @nodoc
 abstract class _$$_LaunchModelCopyWith<$Res>
-    implements $LaunchModelCopyWith<$Res> {
+    implements $SimpleLaunchCopyWith<$Res> {
   factory _$$_LaunchModelCopyWith(
           _$_LaunchModel value, $Res Function(_$_LaunchModel) then) =
       __$$_LaunchModelCopyWithImpl<$Res>;
@@ -372,14 +380,15 @@ abstract class _$$_LaunchModelCopyWith<$Res>
       {String? rocket,
       String? details,
       String? name,
-      DateTime? dateUtc,
+      String? launchpad,
+      @JsonKey(name: 'date_utc') DateTime? dateUtc,
       String? id,
       bool? success});
 }
 
 /// @nodoc
 class __$$_LaunchModelCopyWithImpl<$Res>
-    extends _$LaunchModelCopyWithImpl<$Res, _$_LaunchModel>
+    extends _$SimpleLaunchCopyWithImpl<$Res, _$_LaunchModel>
     implements _$$_LaunchModelCopyWith<$Res> {
   __$$_LaunchModelCopyWithImpl(
       _$_LaunchModel _value, $Res Function(_$_LaunchModel) _then)
@@ -391,6 +400,7 @@ class __$$_LaunchModelCopyWithImpl<$Res>
     Object? rocket = freezed,
     Object? details = freezed,
     Object? name = freezed,
+    Object? launchpad = freezed,
     Object? dateUtc = freezed,
     Object? id = freezed,
     Object? success = freezed,
@@ -407,6 +417,10 @@ class __$$_LaunchModelCopyWithImpl<$Res>
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      launchpad: freezed == launchpad
+          ? _value.launchpad
+          : launchpad // ignore: cast_nullable_to_non_nullable
               as String?,
       dateUtc: freezed == dateUtc
           ? _value.dateUtc
@@ -432,7 +446,8 @@ class _$_LaunchModel implements _LaunchModel {
       {this.rocket,
       this.details,
       this.name,
-      this.dateUtc,
+      this.launchpad,
+      @JsonKey(name: 'date_utc') this.dateUtc,
       this.id,
       this.success});
 
@@ -446,6 +461,9 @@ class _$_LaunchModel implements _LaunchModel {
   @override
   final String? name;
   @override
+  final String? launchpad;
+  @override
+  @JsonKey(name: 'date_utc')
   final DateTime? dateUtc;
   @override
   final String? id;
@@ -454,7 +472,7 @@ class _$_LaunchModel implements _LaunchModel {
 
   @override
   String toString() {
-    return 'LaunchModel(rocket: $rocket, details: $details, name: $name, dateUtc: $dateUtc, id: $id, success: $success)';
+    return 'SimpleLaunch(rocket: $rocket, details: $details, name: $name, launchpad: $launchpad, dateUtc: $dateUtc, id: $id, success: $success)';
   }
 
   @override
@@ -465,6 +483,8 @@ class _$_LaunchModel implements _LaunchModel {
             (identical(other.rocket, rocket) || other.rocket == rocket) &&
             (identical(other.details, details) || other.details == details) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.launchpad, launchpad) ||
+                other.launchpad == launchpad) &&
             (identical(other.dateUtc, dateUtc) || other.dateUtc == dateUtc) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.success, success) || other.success == success));
@@ -472,8 +492,8 @@ class _$_LaunchModel implements _LaunchModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, rocket, details, name, dateUtc, id, success);
+  int get hashCode => Object.hash(
+      runtimeType, rocket, details, name, launchpad, dateUtc, id, success);
 
   @JsonKey(ignore: true)
   @override
@@ -489,12 +509,13 @@ class _$_LaunchModel implements _LaunchModel {
   }
 }
 
-abstract class _LaunchModel implements LaunchModel {
+abstract class _LaunchModel implements SimpleLaunch {
   factory _LaunchModel(
       {final String? rocket,
       final String? details,
       final String? name,
-      final DateTime? dateUtc,
+      final String? launchpad,
+      @JsonKey(name: 'date_utc') final DateTime? dateUtc,
       final String? id,
       final bool? success}) = _$_LaunchModel;
 
@@ -508,6 +529,9 @@ abstract class _LaunchModel implements LaunchModel {
   @override
   String? get name;
   @override
+  String? get launchpad;
+  @override
+  @JsonKey(name: 'date_utc')
   DateTime? get dateUtc;
   @override
   String? get id;

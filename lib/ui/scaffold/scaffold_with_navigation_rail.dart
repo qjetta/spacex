@@ -20,7 +20,13 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
     List<NavigationRailDestination> destinations = [
       for (var item in titleAndIcons)
         NavigationRailDestination(
-          label: Text(item.title),
+          label: Center(
+            child: Text(
+              item.railTitle,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+          ),
           icon: Icon(item.icon),
         ),
     ];

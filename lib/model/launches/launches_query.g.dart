@@ -35,9 +35,13 @@ _$_LauncherQueryData _$$_LauncherQueryDataFromJson(Map<String, dynamic> json) =>
     _$_LauncherQueryData(
       dateQuery: json['date_utc'] == null
           ? null
-          : DateQuery.fromJson(json['date_utc'] as Map<String, dynamic>),
+          : LaunchesQueryDateFilter.fromJson(
+              json['date_utc'] as Map<String, dynamic>),
       rocket: json['rocket'] as String?,
       upcoming: json['upcoming'] as bool?,
+      name: json['name'] == null
+          ? null
+          : NameFilter.fromJson(json['name'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_LauncherQueryDataToJson(
@@ -53,10 +57,33 @@ Map<String, dynamic> _$$_LauncherQueryDataToJson(
   writeNotNull('date_utc', instance.dateQuery?.toJson());
   writeNotNull('rocket', instance.rocket);
   writeNotNull('upcoming', instance.upcoming);
+  writeNotNull('name', instance.name?.toJson());
   return val;
 }
 
-_$_DateQuery _$$_DateQueryFromJson(Map<String, dynamic> json) => _$_DateQuery(
+_$_NameFilter _$$_NameFilterFromJson(Map<String, dynamic> json) =>
+    _$_NameFilter(
+      regex: json[r'$regex'] as String?,
+      options: json[r'$options'] as String?,
+    );
+
+Map<String, dynamic> _$$_NameFilterToJson(_$_NameFilter instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$regex', instance.regex);
+  writeNotNull(r'$options', instance.options);
+  return val;
+}
+
+_$_LaunchesQueryDateFilter _$$_LaunchesQueryDateFilterFromJson(
+        Map<String, dynamic> json) =>
+    _$_LaunchesQueryDateFilter(
       gte: json[r'$gte'] == null
           ? null
           : DateTime.parse(json[r'$gte'] as String),
@@ -65,7 +92,8 @@ _$_DateQuery _$$_DateQueryFromJson(Map<String, dynamic> json) => _$_DateQuery(
           : DateTime.parse(json[r'$lte'] as String),
     );
 
-Map<String, dynamic> _$$_DateQueryToJson(_$_DateQuery instance) {
+Map<String, dynamic> _$$_LaunchesQueryDateFilterToJson(
+    _$_LaunchesQueryDateFilter instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -85,7 +113,7 @@ _$_LaunchesQueryOptions _$$_LaunchesQueryOptionsFromJson(
       select:
           (json['select'] as List<dynamic>?)?.map((e) => e as String).toList(),
       sort: (json['sort'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, $enumDecode(_$SortDirectionEnumMap, e)),
+        (k, e) => MapEntry(k, $enumDecode(_$ESortDirectionEnumMap, e)),
       ),
       limit: json['limit'] as int?,
       page: json['page'] as int?,
@@ -103,13 +131,13 @@ Map<String, dynamic> _$$_LaunchesQueryOptionsToJson(
 
   writeNotNull('select', instance.select);
   writeNotNull('sort',
-      instance.sort?.map((k, e) => MapEntry(k, _$SortDirectionEnumMap[e]!)));
+      instance.sort?.map((k, e) => MapEntry(k, _$ESortDirectionEnumMap[e]!)));
   writeNotNull('limit', instance.limit);
   writeNotNull('page', instance.page);
   return val;
 }
 
-const _$SortDirectionEnumMap = {
-  SortDirection.asc: 'asc',
-  SortDirection.desc: 'desc',
+const _$ESortDirectionEnumMap = {
+  ESortDirection.asc: 'asc',
+  ESortDirection.desc: 'desc',
 };

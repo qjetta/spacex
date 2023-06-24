@@ -1,14 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'launches_simple_model.g.dart';
 part 'launches_simple_model.freezed.dart';
 
 @freezed
-class LaunchesSimpleModel with _$LaunchesSimpleModel {
+class SimpleLaunches with _$SimpleLaunches {
   @JsonSerializable()
-  factory LaunchesSimpleModel({
-    @JsonKey(name: 'docs') List<LaunchModel>? launches,
+  factory SimpleLaunches({
+    @JsonKey(name: 'docs') List<SimpleLaunch>? launches,
     int? totalDocs,
     int? limit,
     int? totalPages,
@@ -16,22 +15,23 @@ class LaunchesSimpleModel with _$LaunchesSimpleModel {
     bool? hasNextPage,
   }) = _LaunchesModel;
 
-  factory LaunchesSimpleModel.fromJson(Map<String, dynamic> json) =>
-      _$LaunchesSimpleModelFromJson(json);
+  factory SimpleLaunches.fromJson(Map<String, dynamic> json) =>
+      _$SimpleLaunchesFromJson(json);
 }
 
 @freezed
-class LaunchModel with _$LaunchModel {
+class SimpleLaunch with _$SimpleLaunch {
   @JsonSerializable(explicitToJson: true)
-  factory LaunchModel({
+  factory SimpleLaunch({
     String? rocket,
     String? details,
     String? name,
-    DateTime? dateUtc,
+    String? launchpad,
+    @JsonKey(name: 'date_utc') DateTime? dateUtc,
     String? id,
     bool? success,
   }) = _LaunchModel;
 
-  factory LaunchModel.fromJson(Map<String, dynamic> json) =>
-      _$LaunchModelFromJson(json);
+  factory SimpleLaunch.fromJson(Map<String, dynamic> json) =>
+      _$SimpleLaunchFromJson(json);
 }

@@ -1,14 +1,14 @@
-part of 'launches_simple_cubit.dart';
+part of 'simple_launches_cubit.dart';
 
 @immutable
-abstract class LaunchesSimpleState extends Equatable {
-  const LaunchesSimpleState({
+abstract class SimpleLaunchesState extends Equatable {
+  const SimpleLaunchesState({
     required this.launchesQuery,
     required this.launchesSimpleList,
     required this.hasNext,
   });
   final LaunchesQuery launchesQuery;
-  final List<LaunchModel> launchesSimpleList;
+  final List<SimpleLaunch> launchesSimpleList;
   final bool hasNext;
 
   @override
@@ -19,34 +19,34 @@ abstract class LaunchesSimpleState extends Equatable {
       ];
 }
 
-class LaunchesSimpleInitialState extends LaunchesSimpleState {
-  const LaunchesSimpleInitialState({
+class SimpleLaunchesInitialState extends SimpleLaunchesState {
+  const SimpleLaunchesInitialState({
     required super.launchesQuery,
     required super.launchesSimpleList,
     required super.hasNext,
   });
 }
 
-class LaunchesSimpleLoadedState extends LaunchesSimpleState {
-  const LaunchesSimpleLoadedState({
+class SimpleLaunchesLoadedState extends SimpleLaunchesState {
+  const SimpleLaunchesLoadedState({
     required super.launchesQuery,
     required super.launchesSimpleList,
     required super.hasNext,
   });
 }
 
-class LaunchesSimpleLoadingState extends LaunchesSimpleState {
-  const LaunchesSimpleLoadingState({
+class SimpleLaunchesLoadingState extends SimpleLaunchesState {
+  const SimpleLaunchesLoadingState({
     required super.launchesQuery,
     required super.launchesSimpleList,
     required super.hasNext,
   });
 }
 
-class LaunchesSimpleErrorState extends LaunchesSimpleState {
+class SimpleLaunchesErrorState extends SimpleLaunchesState {
   final SpaceXException message;
 
-  const LaunchesSimpleErrorState({
+  const SimpleLaunchesErrorState({
     required this.message,
     required LaunchesQuery launchesQuery,
     required super.launchesSimpleList,

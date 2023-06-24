@@ -21,9 +21,10 @@ class LaunchesQuery with _$LaunchesQuery {
 class LaunchesQueryData with _$LaunchesQueryData {
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
   const factory LaunchesQueryData({
-    @JsonKey(name: 'date_utc') DateQuery? dateQuery,
+    @JsonKey(name: 'date_utc') LaunchesQueryDateFilter? dateQuery,
     String? rocket,
     bool? upcoming,
+    NameFilter? name,
   }) = _LauncherQueryData;
 
   factory LaunchesQueryData.fromJson(Map<String, Object?> json) =>
@@ -31,15 +32,27 @@ class LaunchesQueryData with _$LaunchesQueryData {
 }
 
 @freezed
-class DateQuery with _$DateQuery {
+class NameFilter with _$NameFilter {
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
-  factory DateQuery({
+  const factory NameFilter({
+    @JsonKey(name: '\$regex') required String? regex,
+    @JsonKey(name: '\$options') required String? options,
+  }) = _NameFilter;
+
+  factory NameFilter.fromJson(Map<String, dynamic> json) =>
+      _$NameFilterFromJson(json);
+}
+
+@freezed
+class LaunchesQueryDateFilter with _$LaunchesQueryDateFilter {
+  @JsonSerializable(explicitToJson: true, includeIfNull: false)
+  factory LaunchesQueryDateFilter({
     @JsonKey(name: '\$gte') DateTime? gte,
     @JsonKey(name: '\$lte') DateTime? lte,
-  }) = _DateQuery;
+  }) = _LaunchesQueryDateFilter;
 
-  factory DateQuery.fromJson(Map<String, dynamic> json) =>
-      _$DateQueryFromJson(json);
+  factory LaunchesQueryDateFilter.fromJson(Map<String, dynamic> json) =>
+      _$LaunchesQueryDateFilterFromJson(json);
 }
 
 @freezed
@@ -47,7 +60,7 @@ class LaunchesQueryOptions with _$LaunchesQueryOptions {
   @JsonSerializable(explicitToJson: true, includeIfNull: false)
   factory LaunchesQueryOptions({
     List<String>? select,
-    Map<String, SortDirection>? sort,
+    Map<String, ESortDirection>? sort,
     int? limit,
     int? page,
   }) = _LaunchesQueryOptions;
@@ -56,4 +69,4 @@ class LaunchesQueryOptions with _$LaunchesQueryOptions {
       _$LaunchesQueryOptionsFromJson(json);
 }
 
-enum SortDirection { asc, desc }
+enum ESortDirection { asc, desc }

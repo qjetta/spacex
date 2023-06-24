@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacex/ui/scaffold/scaffold_with_dynamic_navigation.dart';
 import 'package:spacex/ui/screens/launch_screen.dart';
-import 'package:spacex/ui/screens/past_launches_screen.dart';
-import 'package:spacex/ui/screens/upcoming_launches_screen.dart';
+import 'package:spacex/ui/screens/launches/past_launches_screen.dart';
+import 'package:spacex/ui/screens/launches/upcoming_launches_screen.dart';
 
 class Navigation {
   static const String pastLaunches = '/past-launches';
