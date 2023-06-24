@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:spacex/controller/space_x_exception.dart';
 import 'package:spacex/main.dart';
-import 'package:spacex/model/launches_query.dart';
-import 'package:spacex/model/launches_simple_model.dart';
+import 'package:spacex/model/launches/launches_query.dart';
+import 'package:spacex/model/launches/launches_simple_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class IRepository {
-  static var defaultPageSize = 5;
+  static var defaultPageSize = 10;
 
   Future<LaunchesSimpleModel> fetchLaunches({required LaunchesQuery query});
 }

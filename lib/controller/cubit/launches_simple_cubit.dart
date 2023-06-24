@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:spacex/controller/space_x_exception.dart';
-import 'package:spacex/model/launches_query.dart';
-import 'package:spacex/model/launches_simple_model.dart';
+import 'package:spacex/model/launches/launches_query.dart';
+import 'package:spacex/model/launches/launches_simple_model.dart';
 import 'package:spacex/model/repository.dart';
 
 part 'launches_simple_state.dart';

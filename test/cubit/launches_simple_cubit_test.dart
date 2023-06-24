@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spacex/controller/cubit/launches_simple_cubit.dart';
-import 'package:spacex/model/launches_query.dart';
-import 'package:spacex/model/launches_simple_model.dart';
+import 'package:spacex/model/launches/launches_query.dart';
+import 'package:spacex/model/launches/launches_simple_model.dart';
 import 'package:spacex/model/repository.dart';
 
 class MockRepository extends Mock implements IRepository {
@@ -13,7 +15,7 @@ class MockRepository extends Mock implements IRepository {
     for (var i = 0; i < 35; i++) {
       launches.add(
         LaunchModel(
-          id: '1 $i',
+          id: 'id $i',
           name: 'name $i',
           dateUtc: DateTime.tryParse('2021-10-01T00:00:00.000Z'),
           success: true,
@@ -28,19 +30,21 @@ class MockRepository extends Mock implements IRepository {
   Future<LaunchesSimpleModel> fetchLaunches(
       {required LaunchesQuery query}) async {
     int limit = query.options?.limit ?? 10;
+    var page = query.options?.page ?? 0;
     return Future<LaunchesSimpleModel>.value(
       LaunchesSimpleModel(
-        launches: launches.sublist(query.options?.page ?? 0 * limit,
-            query.options?.page ?? 10 + 10 * limit),
+        launches: launches.sublist(
+          page * limit,
+          min(
+            page * limit + limit,
+            launches.length,
+          ),
+        ),
         totalDocs: 1,
         limit: limit,
         totalPages: 3,
         page: query.options?.page ?? 0,
-        pagingCounter: 1,
-        hasPrevPage: false,
         hasNextPage: (query.options?.page ?? 0) < 3,
-        prevPage: query.options?.page ?? 0 - 1,
-        nextPage: query.options?.page ?? 0 + 1,
       ),
     );
   }
@@ -76,17 +80,13 @@ void main() {
       build: () => LaunchesSimpleCubit(
           launchesQuery: launchesQuery, repository: MockRepository()),
       act: (cubit) async {
-        cubit.fetchNextLaunches();
-        // await Future.delayed(const Duration(seconds: 3));
-        // cubit.fetchNextLaunches();
-        // await Future.delayed(const Duration(seconds: 3));
-        // cubit.fetchNextLaunches();
-        // await Future.delayed(const Duration(seconds: 3));
-        // cubit.fetchNextLaunches();
-        // await Future.delayed(const Duration(seconds: 3));
-        // cubit.fetchNextLaunches();
+        for (var i = 0; i < 4; i++) {
+          await Future.delayed(const Duration(seconds: 3));
+          cubit.fetchNextLaunches();
+        }
       },
       expect: () => <LaunchesSimpleState>[
+        //1st run
         LaunchesSimpleLoadingState(
             launchesQuery: launchesQuery,
             launchesSimpleList: const [],
@@ -97,39 +97,42 @@ void main() {
           launchesSimpleList: MockRepository().launches.sublist(0, 10),
           hasNext: true,
         ),
-        // LaunchesSimpleLoadingState(
-        //     launchesQuery: launchesQuery.copyWith(
-        //         options: launchesQuery.options?.copyWith(page: 1)),
-        //     launchesSimpleList: MockRepository().launches.sublist(0, 10),
-        //     hasNext: true),
-        // LaunchesSimpleLoadedState(
-        //   launchesQuery: launchesQuery.copyWith(
-        //       options: launchesQuery.options?.copyWith(page: 2)),
-        //   launchesSimpleList: MockRepository().launches.sublist(0, 20),
-        //   hasNext: true,
-        // ),
-        // LaunchesSimpleLoadingState(
-        //     launchesQuery: launchesQuery.copyWith(
-        //         options: launchesQuery.options?.copyWith(page: 2)),
-        //     launchesSimpleList: MockRepository().launches.sublist(0, 20),
-        //     hasNext: true),
-        // LaunchesSimpleLoadedState(
-        //   launchesQuery: launchesQuery.copyWith(
-        //       options: launchesQuery.options?.copyWith(page: 3)),
-        //   launchesSimpleList: MockRepository().launches.sublist(0, 30),
-        //   hasNext: true,
-        // ),
-        // LaunchesSimpleLoadingState(
-        //     launchesQuery: launchesQuery.copyWith(
-        //         options: launchesQuery.options?.copyWith(page: 3)),
-        //     launchesSimpleList: MockRepository().launches.sublist(0, 30),
-        //     hasNext: true),
-        // LaunchesSimpleLoadedState(
-        //   launchesQuery: launchesQuery.copyWith(
-        //       options: launchesQuery.options?.copyWith(page: 4)),
-        //   launchesSimpleList: MockRepository().launches.sublist(0, 35),
-        //   hasNext: false,
-        // ),
+        //2nd run
+        LaunchesSimpleLoadingState(
+            launchesQuery: launchesQuery.copyWith(
+                options: launchesQuery.options?.copyWith(page: 1)),
+            launchesSimpleList: MockRepository().launches.sublist(0, 10),
+            hasNext: true),
+        LaunchesSimpleLoadedState(
+          launchesQuery: launchesQuery.copyWith(
+              options: launchesQuery.options?.copyWith(page: 2)),
+          launchesSimpleList: MockRepository().launches.sublist(0, 20),
+          hasNext: true,
+        ),
+        //3rd run
+        LaunchesSimpleLoadingState(
+            launchesQuery: launchesQuery.copyWith(
+                options: launchesQuery.options?.copyWith(page: 2)),
+            launchesSimpleList: MockRepository().launches.sublist(0, 20),
+            hasNext: true),
+        LaunchesSimpleLoadedState(
+          launchesQuery: launchesQuery.copyWith(
+              options: launchesQuery.options?.copyWith(page: 3)),
+          launchesSimpleList: MockRepository().launches.sublist(0, 30),
+          hasNext: true,
+        ),
+        //4th run
+        LaunchesSimpleLoadingState(
+            launchesQuery: launchesQuery.copyWith(
+                options: launchesQuery.options?.copyWith(page: 3)),
+            launchesSimpleList: MockRepository().launches.sublist(0, 30),
+            hasNext: true),
+        LaunchesSimpleLoadedState(
+          launchesQuery: launchesQuery.copyWith(
+              options: launchesQuery.options?.copyWith(page: 4)),
+          launchesSimpleList: MockRepository().launches.sublist(0, 35),
+          hasNext: false,
+        ),
       ],
     );
   });

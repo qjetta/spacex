@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:spacex/controller/go_router.dart';
-import 'package:spacex/model/launches_query.dart';
+import 'package:spacex/model/launches/launches_query.dart';
 import 'package:spacex/model/repository.dart';
 import 'package:spacex/ui/screens/launches_screen.dart';
 

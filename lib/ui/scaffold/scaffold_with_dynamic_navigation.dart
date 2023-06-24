@@ -34,7 +34,7 @@ class ScaffoldWithDynamicNavigation extends StatelessWidget {
       ),
       TitleAndIcon(
         title: 'Upcoming Launches',
-        icon: Icons.upcoming,
+        icon: Icons.chevron_right,
       ),
     ];
 

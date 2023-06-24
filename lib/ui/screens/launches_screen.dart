@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex/controller/cubit/launches_simple_cubit.dart';
 import 'package:spacex/controller/cubit/repository_cubit.dart';
-import 'package:spacex/model/launches_query.dart';
+import 'package:spacex/model/launches/launches_query.dart';
 import 'package:spacex/model/repository.dart';
 import 'package:spacex/ui/screens/launch_list_tile.dart';
 import 'package:spacex/ui/screens/launch_screen.dart';
