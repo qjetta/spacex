@@ -39,6 +39,11 @@ class ScaffoldWithDynamicNavigation extends StatelessWidget {
         railTitle: 'launches.upcoming.rail_title'.tr(),
         icon: Icons.chevron_right,
       ),
+      TitleAndIcon(
+        title: 'launch.favorite.title'.tr(),
+        railTitle: 'launch.favorite.rail_title'.tr(),
+        icon: Icons.star,
+      ),
     ];
 
     return LayoutBuilder(builder: (context, constraints) {

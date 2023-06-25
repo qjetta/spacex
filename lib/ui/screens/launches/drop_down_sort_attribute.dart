@@ -15,7 +15,7 @@ class DropDownSortAttribute extends StatelessWidget {
           elevation: 16,
           onChanged: (String? newValue) =>
               context.read<SimpleLaunchesCubit>().sortBy(newValue),
-          items: <String>['date_utc', 'name', 'rocket', 'success', 'launchpad']
+          items: <String>['date_utc', 'launchpad', 'name', 'rocket', 'success']
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,

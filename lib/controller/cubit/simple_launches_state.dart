@@ -44,10 +44,10 @@ class SimpleLaunchesLoadingState extends SimpleLaunchesState {
 }
 
 class SimpleLaunchesErrorState extends SimpleLaunchesState {
-  final SpaceXException message;
+  final SpaceXException exception;
 
   const SimpleLaunchesErrorState({
-    required this.message,
+    required this.exception,
     required LaunchesQuery launchesQuery,
     required super.launchesSimpleList,
     required super.hasNext,
@@ -56,7 +56,7 @@ class SimpleLaunchesErrorState extends SimpleLaunchesState {
   List<Object?> get props => [
         launchesQuery,
         launchesSimpleList,
-        message,
+        exception,
         hasNext,
       ];
 }

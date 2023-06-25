@@ -4,4 +4,34 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    
+
+    <application
+        android:name="io.flutter.app.FlutterApplication"
+        android:label="SpaceX"
+        android:icon="@mipmap/ic_launcher">
+
+        <!-- Add the following intent filter under your main activity -->
+        <activity
+            android:name=".MainActivity"
+          >
+
+            <!-- Add the intent filter here -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Add the intent filter for handling URLs -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Add your custom URL scheme here -->
+                <data android:scheme="*" />
+            </intent-filter>
+        </activity>
+    </application>
+
 </manifest>

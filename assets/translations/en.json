@@ -25,9 +25,16 @@
         }
     },
     "launch": {
-        "title": "Launch"
+        "title": "Launch",
+        "favorite": {
+            "title": "Favorite Launch",
+            "rail_title": "Favorite\nLaunch"
+        }
     },
     "error": {
-        "unknown_state": "Unknown state ${state}"
+        "unknown_state": "Unknown state ${state}",
+        "router": {
+            "launch_id_missing": "Launch ID is missing."
+        }
     }
 }

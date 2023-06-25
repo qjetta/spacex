@@ -1,13 +1,22 @@
+// ignore_for_file: unused_import
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:spacex/model/launch/launch.dart';
 import 'package:spacex/ui/scaffold/scaffold_with_dynamic_navigation.dart';
-import 'package:spacex/ui/screens/launch_screen.dart';
+import 'package:spacex/ui/screens/error_screen.dart';
+import 'package:spacex/ui/screens/launch/launch_screen.dart';
 import 'package:spacex/ui/screens/launches/past_launches_screen.dart';
 import 'package:spacex/ui/screens/launches/upcoming_launches_screen.dart';
 
 class Navigation {
-  static const String pastLaunches = '/past-launches';
-  static const String upcomingLaunches = '/upcoming-launches';
+  static const pastLaunches = '/past-launches';
+  static const upcomingLaunches = '/upcoming-launches';
+  static const launch = 'launch';
+  static const launchParameter = '/:id';
+
+  static const favoriteLaunch = '/favoriteLaunch';
 }
 
 // private navigators
@@ -16,6 +25,10 @@ final _shellNavigatorPastLaunchesKey =
     GlobalKey<NavigatorState>(debugLabel: Navigation.pastLaunches);
 final _shellNavigatorUpcomingKey =
     GlobalKey<NavigatorState>(debugLabel: Navigation.upcomingLaunches);
+final _shellNavigatorFavoriteLaunchKey =
+    GlobalKey<NavigatorState>(debugLabel: Navigation.favoriteLaunch);
+
+const _favoriteLaunchId = '62f3b5330f55c50e192a4e6e';
 
 final goRouter = GoRouter(
   initialLocation: Navigation.pastLaunches,
@@ -27,6 +40,7 @@ final goRouter = GoRouter(
   // * root on hot reload
   navigatorKey: _rootNavigatorKey,
   debugLogDiagnostics: true,
+
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
@@ -43,8 +57,16 @@ final goRouter = GoRouter(
               ),
               routes: [
                 GoRoute(
-                  path: LaunchScreen.path,
-                  builder: (context, state) => const LaunchScreen(),
+                  path: Navigation.launch + Navigation.launchParameter,
+                  builder: (context, state) {
+                    final id = state.pathParameters['id'];
+                    if (id == null) {
+                      return ErrorScreen(
+                        message: "error.router.launch_id_missing".tr(),
+                      );
+                    }
+                    return LaunchScreen(id: id);
+                  },
                 ),
               ],
             ),
@@ -57,6 +79,17 @@ final goRouter = GoRouter(
               path: Navigation.upcomingLaunches,
               pageBuilder: (context, state) => NoTransitionPage(
                 child: UpcomingLaunchesScreen(),
+              ),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorFavoriteLaunchKey,
+          routes: [
+            GoRoute(
+              path: Navigation.favoriteLaunch,
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: LaunchScreen(id: _favoriteLaunchId),
               ),
             ),
           ],

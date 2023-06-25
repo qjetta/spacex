@@ -9,22 +9,7 @@ import 'package:spacex/model/launches/launches_simple_model.dart';
 import 'package:spacex/model/repository.dart';
 
 class MockRepository extends Mock implements IRepository {
-  var launches = <SimpleLaunch>[];
-
-  MockRepository() {
-    for (var i = 0; i < 35; i++) {
-      launches.add(
-        SimpleLaunch(
-          id: 'id $i',
-          name: 'name $i',
-          dateUtc: DateTime.tryParse('2021-10-01T00:00:00.000Z'),
-          success: true,
-          details: 'details $i',
-          rocket: 'rocket $i',
-        ),
-      );
-    }
-  }
+  final List<SimpleLaunch> launches = createList();
 
   @override
   Future<SimpleLaunches> fetchLaunches({required LaunchesQuery query}) async {
@@ -46,6 +31,23 @@ class MockRepository extends Mock implements IRepository {
         hasNextPage: (query.options?.page ?? 0) < 3,
       ),
     );
+  }
+
+  static List<SimpleLaunch> createList() {
+    List<SimpleLaunch> launches = [];
+    for (var i = 0; i < 35; i++) {
+      launches.add(
+        SimpleLaunch(
+          id: 'id $i',
+          name: 'name $i',
+          dateUtc: DateTime.tryParse('2021-10-01T00:00:00.000Z'),
+          success: true,
+          details: 'details $i',
+          rocket: 'rocket $i',
+        ),
+      );
+    }
+    return launches;
   }
 }
 

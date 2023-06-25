@@ -1,8 +1,11 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
+import 'package:spacex/controller/go_router.dart';
 import 'package:spacex/ui/screens/launches/launch_list_tile.dart';
-import 'package:spacex/ui/screens/launch_screen.dart';
+import 'package:spacex/ui/screens/launch/launch_screen.dart';
 
 class LaunchListView extends StatelessWidget {
   const LaunchListView({Key? key, required this.path}) : super(key: key);
@@ -23,7 +26,7 @@ class LaunchListView extends StatelessWidget {
               final launch = state.launchesSimpleList[index];
               return LaunchListTile(
                 launch: launch,
-                path: '$path/${LaunchScreen.path}',
+                path: '$path/${Navigation.launch}/${launch.id}',
               );
             } else {
               //if not all loaded => show loading indicator

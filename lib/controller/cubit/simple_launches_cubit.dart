@@ -27,89 +27,6 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
     _fetchNextPage(state.launchesQuery);
   }
 
-  void _fetchNextPage(
-    LaunchesQuery currentLaunchesQuery,
-  ) async {
-    if (state is SimpleLaunchesLoadingState) {
-      return;
-    }
-
-    _emitLoadingState(currentLaunchesQuery);
-
-    //it must be checked after emit SimpleLaunchesLoadingState
-    if (_emitLoadedForNoNextPage(currentLaunchesQuery)) {
-      return;
-    }
-
-    try {
-      await fetchDataAndEmitLoaded(currentLaunchesQuery);
-    } on SpaceXException catch (e) {
-      emit(SimpleLaunchesErrorState(
-        message: e,
-        launchesQuery: currentLaunchesQuery.copyWith(),
-        launchesSimpleList: state.launchesSimpleList.toList(),
-        hasNext: state.hasNext,
-      ));
-    } on Exception catch (e) {
-      emit(SimpleLaunchesErrorState(
-        message: SpaceXException(
-          e.toString(),
-        ),
-        launchesQuery: currentLaunchesQuery.copyWith(),
-        launchesSimpleList: state.launchesSimpleList.toList(),
-        hasNext: state.hasNext,
-      ));
-    }
-  }
-
-  Future<void> fetchDataAndEmitLoaded(
-      LaunchesQuery currentLaunchesQuery) async {
-    List<SimpleLaunch> newList = [];
-    var newLaunchesQuery = currentLaunchesQuery;
-    if (state.launchesQuery.options?.page != 0) {
-      newList.addAll(state.launchesSimpleList);
-    }
-
-    final SimpleLaunches loadedLaunches = await _repository.fetchLaunches(
-      query: newLaunchesQuery,
-    );
-
-    if (loadedLaunches.launches != null) {
-      newList.addAll(loadedLaunches.launches!);
-    }
-
-    emit(
-      SimpleLaunchesLoadedState(
-        launchesQuery: currentLaunchesQuery.copyWith(
-          options: currentLaunchesQuery.options?.copyWith(
-            page: currentLaunchesQuery.options?.page == null
-                ? 0
-                : currentLaunchesQuery.options!.page! + 1,
-          ),
-        ),
-        launchesSimpleList: newList,
-        hasNext: loadedLaunches.hasNextPage ?? false,
-      ),
-    );
-  }
-
-  void _emitLoadingState(LaunchesQuery currentLaunchesQuery) {
-    if (currentLaunchesQuery.options?.page == 0) {
-      SimpleLaunchesLoadingState newLaunchesState = SimpleLaunchesLoadingState(
-        launchesQuery: currentLaunchesQuery,
-        launchesSimpleList: const [],
-        hasNext: true,
-      );
-      emit(newLaunchesState);
-    } else {
-      emit(SimpleLaunchesLoadingState(
-        launchesQuery: currentLaunchesQuery,
-        launchesSimpleList: state.launchesSimpleList.toList(),
-        hasNext: state.hasNext,
-      ));
-    }
-  }
-
   void searchByText(String text) {
     if (state is SimpleLaunchesLoadingState) {
       return;
@@ -170,6 +87,101 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
       ),
     );
     _fetchNextPage(launchesQuery);
+  }
+
+  void _fetchNextPage(
+    LaunchesQuery currentLaunchesQuery,
+  ) async {
+    if (state is SimpleLaunchesLoadingState) {
+      return;
+    }
+    _emitLoadingState(currentLaunchesQuery);
+
+    //it must be checked after emit SimpleLaunchesLoadingState
+    if (_emitLoadedForNoNextPage(currentLaunchesQuery)) {
+      return;
+    }
+
+    try {
+      await _fetchDataAndEmitLoaded(currentLaunchesQuery);
+    } on SpaceXException catch (e) {
+      _emitErrorState(e, currentLaunchesQuery);
+    } on Exception catch (e) {
+      _emitErrorState(
+        SpaceXException(
+          e.toString(),
+        ),
+        currentLaunchesQuery,
+      );
+    }
+  }
+
+  Future<void> _fetchDataAndEmitLoaded(
+      LaunchesQuery currentLaunchesQuery) async {
+    List<SimpleLaunch> newList = [];
+    var newLaunchesQuery = currentLaunchesQuery;
+    if (state.launchesQuery.options?.page != 0) {
+      newList.addAll(state.launchesSimpleList);
+    }
+
+    final SimpleLaunches loadedLaunches = await _repository.fetchLaunches(
+      query: newLaunchesQuery,
+    );
+
+    if (loadedLaunches.launches != null) {
+      newList.addAll(loadedLaunches.launches!);
+    }
+
+    _emitLoadedState(
+      currentLaunchesQuery,
+      newList,
+      loadedLaunches,
+    );
+  }
+
+  void _emitLoadedState(LaunchesQuery currentLaunchesQuery,
+      List<SimpleLaunch> newList, SimpleLaunches loadedLaunches) {
+    return emit(
+      SimpleLaunchesLoadedState(
+        launchesQuery: currentLaunchesQuery.copyWith(
+          options: currentLaunchesQuery.options?.copyWith(
+            page: currentLaunchesQuery.options?.page == null
+                ? 0
+                : currentLaunchesQuery.options!.page! + 1,
+          ),
+        ),
+        launchesSimpleList: newList,
+        hasNext: loadedLaunches.hasNextPage ?? false,
+      ),
+    );
+  }
+
+  void _emitLoadingState(LaunchesQuery currentLaunchesQuery) {
+    if (currentLaunchesQuery.options?.page == 0) {
+      SimpleLaunchesLoadingState newLaunchesState = SimpleLaunchesLoadingState(
+        launchesQuery: currentLaunchesQuery,
+        launchesSimpleList: const [],
+        hasNext: true,
+      );
+      emit(newLaunchesState);
+    } else {
+      emit(SimpleLaunchesLoadingState(
+        launchesQuery: currentLaunchesQuery,
+        launchesSimpleList: state.launchesSimpleList.toList(),
+        hasNext: state.hasNext,
+      ));
+    }
+  }
+
+  void _emitErrorState(SpaceXException e, LaunchesQuery currentLaunchesQuery) {
+    return emit(
+      SimpleLaunchesErrorState(
+        exception: e,
+        launchesQuery: currentLaunchesQuery.copyWith(),
+        launchesSimpleList: state.launchesSimpleList.toList(),
+        hasNext: state.hasNext,
+      ),
+    );
   }
 
   bool _emitLoadedForNoNextPage(LaunchesQuery currentLaunchesQuery) {
