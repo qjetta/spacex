@@ -52,7 +52,7 @@ final goRouter = GoRouter(
           routes: [
             GoRoute(
               path: Navigation.pastLaunches,
-              pageBuilder: (context, state) => NoTransitionPage(
+              pageBuilder: (context, state) => const NoTransitionPage(
                 child: PastLaunchesScreen(),
               ),
               routes: [
@@ -77,7 +77,7 @@ final goRouter = GoRouter(
           routes: [
             GoRoute(
               path: Navigation.upcomingLaunches,
-              pageBuilder: (context, state) => NoTransitionPage(
+              pageBuilder: (context, state) => const NoTransitionPage(
                 child: UpcomingLaunchesScreen(),
               ),
             ),

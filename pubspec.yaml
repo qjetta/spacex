@@ -25,6 +25,7 @@ dependencies:
   youtube_player_flutter: ^8.1.2
   url_launcher: ^6.1.11
   flutter_layout_grid: ^2.0.3
+  flutter_secure_storage: ^8.0.0
   
 
 

@@ -3,10 +3,13 @@ import 'dart:math';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:spacex/controller/cubit/repository_cubit.dart';
 import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
+import 'package:spacex/main.dart';
 import 'package:spacex/model/launches/launches_query.dart';
 import 'package:spacex/model/launches/launches_simple_model.dart';
 import 'package:spacex/model/repository.dart';
+import 'package:spacex/ui/screens/launches/launches_screen.dart';
 
 class MockRepository extends Mock implements IRepository {
   final List<SimpleLaunch> launches = createList();
@@ -15,14 +18,19 @@ class MockRepository extends Mock implements IRepository {
   Future<SimpleLaunches> fetchLaunches({required LaunchesQuery query}) async {
     int limit = query.options?.limit ?? 10;
     var page = query.options?.page ?? 0;
+
+    var start = page * limit;
+    var end = min(
+      page * limit + limit,
+      launches.length,
+    );
+    logger.d('fetchLaunches: page: $page, start: $start, end: $end');
+
     return Future<SimpleLaunches>.value(
       SimpleLaunches(
         launches: launches.sublist(
-          page * limit,
-          min(
-            page * limit + limit,
-            launches.length,
-          ),
+          start,
+          end,
         ),
         totalDocs: 1,
         limit: limit,
@@ -51,27 +59,26 @@ class MockRepository extends Mock implements IRepository {
   }
 }
 
+class MockStorage extends Mock implements Storage {
+  @override
+  Future<void> saveLaunchesQuery(
+      LaunchesQuery launchesQuery, ELaunchesType type) {
+    return Future.value();
+  }
+
+  @override
+  Future<LaunchesQuery> loadLaunches(ELaunchesType type) async {
+    return Future.value(getDefaultQuery(type));
+  }
+
+  @override
+  LaunchesQuery getDefaultQuery(ELaunchesType eLaunchesType) {
+    return Storage().getDefaultQuery(eLaunchesType);
+  }
+}
+
 void main() {
-  var launchesQuery = LaunchesQuery(
-    options: LaunchesQueryOptions(
-      limit: 10,
-      sort: {'date_utc': ESortDirection.desc},
-      page: 0,
-      select: [
-        'id',
-        'name',
-        'rocket',
-        'details',
-        'date_utc',
-        'success',
-      ],
-    ),
-    queryData: LaunchesQueryData(
-      dateQuery:
-          LaunchesQueryDateFilter(gte: null, lte: DateTime.now().toUtc()),
-      rocket: null,
-    ),
-  );
+  var launchesQuery = Storage().getDefaultQuery(ELaunchesType.upcoming);
 
   group('LaunchesSimpleCubit Test', () {
     setUp(
@@ -80,7 +87,10 @@ void main() {
     blocTest<SimpleLaunchesCubit, SimpleLaunchesState>(
       'fetch 4 pages of launches',
       build: () => SimpleLaunchesCubit(
-          launchesQuery: launchesQuery, repository: MockRepository()),
+        repository: MockRepository(),
+        storage: MockStorage(),
+        launchesType: ELaunchesType.upcoming,
+      ),
       act: (cubit) async {
         for (var i = 0; i < 4; i++) {
           await Future.delayed(const Duration(seconds: 3));

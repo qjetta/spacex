@@ -1,33 +1,38 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:spacex/controller/cubit/repository_cubit.dart';
 import 'package:spacex/controller/space_x_exception.dart';
 import 'package:spacex/model/launches/launches_query.dart';
 import 'package:spacex/model/launches/launches_simple_model.dart';
 import 'package:spacex/model/repository.dart';
+import 'package:spacex/ui/screens/launches/launches_screen.dart';
 
 part 'simple_launches_state.dart';
 
 class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
   SimpleLaunchesCubit({
     required repository,
-    required LaunchesQuery launchesQuery,
+    required this.storage,
+    required this.launchesType,
   })  : _repository = repository,
         super(
           SimpleLaunchesInitialState(
-            launchesQuery: launchesQuery,
+            launchesQuery: storage.getDefaultQuery(launchesType),
             launchesSimpleList: const [],
             hasNext: true,
           ),
         );
 
   final IRepository _repository;
+  final Storage storage;
+  final ELaunchesType launchesType;
 
   void fetchNextPage() {
     _fetchNextPage(state.launchesQuery);
   }
 
-  void searchByText(String text) {
+  Future<void> searchByText(String text) async {
     if (state is SimpleLaunchesLoadingState) {
       return;
     }
@@ -41,6 +46,7 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
         page: 0,
       ),
     );
+    await saveLaunchesQuery(launchesQuery);
     _fetchNextPage(launchesQuery);
   }
 
@@ -51,7 +57,7 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
     _fetchNextPage(state.launchesQuery.copyWith());
   }
 
-  void sortBy(String? attributeName) {
+  Future<void> sortBy(String? attributeName) async {
     if (state is SimpleLaunchesLoadingState) {
       return;
     }
@@ -67,10 +73,11 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
         page: 0,
       ),
     );
+    await saveLaunchesQuery(launchesQuery);
     _fetchNextPage(launchesQuery);
   }
 
-  void sortDirection(String? direction) {
+  Future<void> sortDirection(String? direction) async {
     if (state is SimpleLaunchesLoadingState) {
       return;
     }
@@ -86,7 +93,12 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
         page: 0,
       ),
     );
+    await saveLaunchesQuery(launchesQuery);
     _fetchNextPage(launchesQuery);
+  }
+
+  Future<void> saveLaunchesQuery(LaunchesQuery launchesQuery) async {
+    await storage.saveLaunchesQuery(launchesQuery, launchesType);
   }
 
   void _fetchNextPage(
@@ -95,23 +107,35 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
     if (state is SimpleLaunchesLoadingState) {
       return;
     }
-    _emitLoadingState(currentLaunchesQuery);
 
     //it must be checked after emit SimpleLaunchesLoadingState
-    if (_emitLoadedForNoNextPage(currentLaunchesQuery)) {
+
+    LaunchesQuery newLaunchesQuery = currentLaunchesQuery;
+    if (state is SimpleLaunchesInitialState) {
+      newLaunchesQuery = await storage.loadLaunches(launchesType);
+      emit(
+        SimpleLaunchesLoadingState(
+            launchesQuery: newLaunchesQuery,
+            launchesSimpleList: const [],
+            hasNext: true),
+      );
+    } else {
+      _emitLoadingState(currentLaunchesQuery);
+    }
+    if (_emitLoadedForNoNextPage(newLaunchesQuery)) {
       return;
     }
 
     try {
-      await _fetchDataAndEmitLoaded(currentLaunchesQuery);
+      await _fetchDataAndEmitLoaded(newLaunchesQuery);
     } on SpaceXException catch (e) {
-      _emitErrorState(e, currentLaunchesQuery);
+      _emitErrorState(e, newLaunchesQuery);
     } on Exception catch (e) {
       _emitErrorState(
         SpaceXException(
           e.toString(),
         ),
-        currentLaunchesQuery,
+        newLaunchesQuery,
       );
     }
   }
@@ -133,7 +157,7 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
     }
 
     _emitLoadedState(
-      currentLaunchesQuery,
+      newLaunchesQuery,
       newList,
       loadedLaunches,
     );

@@ -56,8 +56,10 @@ class GroupFormWidget extends StatelessWidget {
                 rowStart: 0,
                 rowSpan: 1,
                 child: Center(
-                  child: Text(title,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
               ),
               ...widgets
