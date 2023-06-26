@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacex/model/launches/launches_simple_model.dart';
 import 'package:spacex/ui/components/icon_with_text.dart';
+import 'package:spacex/ui/components/title_with_background_widget.dart';
 import 'package:spacex/ui/components/ui_helper.dart';
 
 class LaunchListTile extends StatelessWidget {
@@ -21,11 +22,12 @@ class LaunchListTile extends StatelessWidget {
           UIHelper.paddingSmall, UIHelper.paddingSmall, 0),
       child: ListTile(
         horizontalTitleGap: UIHelper.paddingBig,
-        title: IconWithText(
-          icon: createSuccessIcon(),
-          text: launch.name ?? '',
-          color: Theme.of(context).primaryColor,
-        ),
+        // title: IconWithText(
+        //   icon: createSuccessIcon(),
+        //   text: launch.name ?? '',
+        //   color: Theme.of(context).primaryColor,
+        // ),
+        title: TitleWithBackgroundWidget(level: 1, title: launch.name ?? ''),
         subtitle: createSubtitle(),
         onTap: () => context.go('$path?id=${launch.id}'),
       ),

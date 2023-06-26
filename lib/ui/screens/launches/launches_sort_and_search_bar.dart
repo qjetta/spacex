@@ -8,17 +8,17 @@ import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
 import 'package:spacex/ui/components/ui_helper.dart';
 import 'package:spacex/ui/screens/launches/drop_down_sort_attribute.dart';
 import 'package:spacex/ui/screens/launches/drop_down_sort_direction.dart';
-import 'package:spacex/ui/screens/launches/launches_filter.dart';
+import 'package:spacex/ui/screens/launches/launches_sort.dart';
 import 'package:spacex/ui/screens/launches/launches_search_bar.dart';
 
-class LaunchFilterAndSearchBar extends StatelessWidget {
-  const LaunchFilterAndSearchBar({super.key});
+class SortAndSearchBar extends StatelessWidget {
+  const SortAndSearchBar({super.key});
   @override
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        LaunchesFilter(),
         LaunchesSearchBar(),
+        LaunchesSort(),
       ],
     );
   }

@@ -13,6 +13,7 @@ class CoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GroupFormWidget(
+      level: 2,
       title: 'Core: ${core.core ?? ''}',
       children: [
         const Text('Flight:'),

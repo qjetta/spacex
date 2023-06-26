@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spacex/model/launch/launch.dart';
+import 'package:spacex/ui/components/title_with_background_widget.dart';
+import 'package:spacex/ui/components/ui_helper.dart';
 import 'package:spacex/ui/screens/launch/core_widget.dart';
 
 class CoresListWidget extends StatelessWidget {
@@ -9,14 +11,17 @@ class CoresListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "Cores",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        for (var core in cores) CoreWidget(core: core),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(UIHelper.paddingBig),
+      child: Column(
+        children: [
+          const TitleWithBackgroundWidget(
+            title: "Cores",
+            level: 1,
+          ),
+          for (var core in cores) CoreWidget(core: core),
+        ],
+      ),
     );
   }
 }

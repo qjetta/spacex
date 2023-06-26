@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:spacex/model/launch/launch.dart';
+import 'package:spacex/ui/components/cached_network_image_with_defaults.dart';
 import 'package:spacex/ui/components/url_widget.dart';
 import 'package:spacex/ui/screens/launch/group_form_widget.dart';
 
@@ -20,6 +21,7 @@ class PatchWidget extends StatelessWidget {
 
     return GroupFormWidget(
       title: "Patch:",
+      level: 2,
       children: [
         const Text('Small:'),
         URLWidget(patch.small ?? ''),
@@ -37,8 +39,8 @@ class PatchWidget extends StatelessWidget {
             width: double.infinity,
             child: SizedBox(
               height: 100,
-              child: Image.network(
-                patch.small!,
+              child: CachedNetworkImageWithDefaults(
+                url: patch.small!,
               ),
             ),
           ),

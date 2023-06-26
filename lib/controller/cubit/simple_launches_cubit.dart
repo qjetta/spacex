@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:spacex/controller/cubit/repository_cubit.dart';
 import 'package:spacex/controller/space_x_exception.dart';
+import 'package:spacex/main.dart';
 import 'package:spacex/model/launches/launches_query.dart';
 import 'package:spacex/model/launches/launches_simple_model.dart';
 import 'package:spacex/model/repository.dart';
@@ -27,6 +28,7 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
   final IRepository _repository;
   final Storage storage;
   final ELaunchesType launchesType;
+  static const debug = true;
 
   void fetchNextPage() {
     _fetchNextPage(state.launchesQuery);
@@ -112,16 +114,19 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
 
     LaunchesQuery newLaunchesQuery = currentLaunchesQuery;
     if (state is SimpleLaunchesInitialState) {
-      newLaunchesQuery = await storage.loadLaunches(launchesType);
+      newLaunchesQuery = await storage.loadLaunchesQuery(launchesType);
+      var loadedLaunches = await storage.loadLaunches(launchesType);
       emit(
         SimpleLaunchesLoadingState(
             launchesQuery: newLaunchesQuery,
-            launchesSimpleList: const [],
+            launchesSimpleList: loadedLaunches.launches ?? const [],
             hasNext: true),
       );
+      if (debug) Future.delayed(const Duration(seconds: 15));
     } else {
       _emitLoadingState(currentLaunchesQuery);
     }
+
     if (_emitLoadedForNoNextPage(newLaunchesQuery)) {
       return;
     }
@@ -151,6 +156,9 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
     final SimpleLaunches loadedLaunches = await _repository.fetchLaunches(
       query: newLaunchesQuery,
     );
+    if (state.launchesQuery.options?.page == 0) {
+      storage.saveLaunches(loadedLaunches, launchesType);
+    }
 
     if (loadedLaunches.launches != null) {
       newList.addAll(loadedLaunches.launches!);

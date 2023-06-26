@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:spacex/ui/components/title_with_background_widget.dart';
 import 'package:spacex/ui/components/ui_helper.dart';
 
 class GroupFormWidget extends StatelessWidget {
   const GroupFormWidget({
     required this.title,
     required this.children,
+    this.level = 1,
     super.key,
   });
 
   final List<Widget> children;
   final String title;
+  final int level;
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +33,18 @@ class GroupFormWidget extends StatelessWidget {
       ));
     }
 
+    double paddingSmall = level == 1 ? UIHelper.paddingSmall : 0.0;
+    double paddingBig = level == 1 ? UIHelper.paddingBig : 0.0;
+
     return Padding(
-      padding: const EdgeInsets.only(
-        left: UIHelper.paddingBig,
-        right: UIHelper.paddingBig,
-        bottom: UIHelper.paddingSmall,
-        top: UIHelper.paddingSmall,
+      padding: EdgeInsets.only(
+        left: paddingBig,
+        right: paddingBig,
+        bottom: paddingSmall,
+        top: paddingSmall,
       ),
       child: Container(
-        padding: const EdgeInsets.all(UIHelper.paddingSmall),
+        padding: EdgeInsets.all(paddingSmall),
         child: Center(
           child: LayoutGrid(
             gridFit: GridFit.expand,
@@ -55,11 +61,9 @@ class GroupFormWidget extends StatelessWidget {
                 columnSpan: 2,
                 rowStart: 0,
                 rowSpan: 1,
-                child: Center(
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
+                child: TitleWithBackgroundWidget(
+                  level: level,
+                  title: title,
                 ),
               ),
               ...widgets

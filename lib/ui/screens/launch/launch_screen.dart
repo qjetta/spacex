@@ -6,6 +6,7 @@ import 'package:spacex/controller/cubit/launch_cubit.dart';
 import 'package:spacex/controller/cubit/repository_cubit.dart';
 import 'package:spacex/controller/go_router.dart';
 import 'package:spacex/ui/components/error_widget_with_reload.dart';
+import 'package:spacex/ui/components/ui_helper.dart';
 import 'package:spacex/ui/components/unknown_cubit_state_error_widget.dart';
 import 'package:spacex/ui/screens/launch/launch_body_widget.dart';
 
@@ -42,7 +43,10 @@ class LaunchScreen extends StatelessWidget {
               onPressed: () => context.go(Navigation.home),
             ),
           ),
-          body: Center(
+          body: Container(
+            padding: const EdgeInsets.all(UIHelper.paddingBig),
+            alignment: Alignment.center,
+            decoration: UIHelper.getBorderRadiusDecorationOpacity(),
             child: BlocBuilder<LaunchCubit, LaunchState>(
               builder: (context, state) {
                 if (state is LaunchInitial) {

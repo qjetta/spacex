@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
 import 'package:spacex/ui/components/error_widget_with_reload.dart';
+import 'package:spacex/ui/components/ui_helper.dart';
 import 'package:spacex/ui/components/unknown_cubit_state_error_widget.dart';
 import 'package:spacex/ui/screens/launches/launch_list_view.dart';
-import 'package:spacex/ui/screens/launches/launches_filter_and_search_bar.dart';
+import 'package:spacex/ui/screens/launches/launches_sort_and_search_bar.dart';
 
 class CrewBody extends StatelessWidget {
   const CrewBody({required this.path, Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class CrewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const LaunchFilterAndSearchBar(),
+        const SortAndSearchBar(),
         BlocBuilder<SimpleLaunchesCubit, SimpleLaunchesState>(
           builder: (context, state) {
             if (state is SimpleLaunchesInitialState) {
@@ -23,7 +24,22 @@ class CrewBody extends StatelessWidget {
               );
             } else if (state is SimpleLaunchesLoadedState ||
                 state is SimpleLaunchesLoadingState) {
-              return Expanded(child: LaunchListView(path: path));
+              return Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.only(
+                  left: UIHelper.paddingSmall,
+                  right: UIHelper.paddingSmall,
+                  bottom: UIHelper.paddingSmall,
+                ),
+                child: Container(
+                  decoration: UIHelper.getBorderRadiusDecorationOpacity(
+                    color: state is SimpleLaunchesLoadingState
+                        ? Theme.of(context).primaryColor.withOpacity(0.3)
+                        : null,
+                  ),
+                  child: LaunchListView(path: path),
+                ),
+              ));
             } else if (state is SimpleLaunchesErrorState) {
               return ErrorWidgetWithReload(
                 onPressed: () => context.read<SimpleLaunchesCubit>().reload(),
