@@ -6,8 +6,8 @@ import 'package:spacex/ui/components/unknown_cubit_state_error_widget.dart';
 import 'package:spacex/ui/screens/launches/launch_list_view.dart';
 import 'package:spacex/ui/screens/launches/launches_filter_and_search_bar.dart';
 
-class LaunchesBody extends StatelessWidget {
-  const LaunchesBody({required this.path, Key? key}) : super(key: key);
+class CrewBody extends StatelessWidget {
+  const CrewBody({required this.path, Key? key}) : super(key: key);
   final String path;
 
   @override

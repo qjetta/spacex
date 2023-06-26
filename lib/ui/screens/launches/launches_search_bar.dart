@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
-import 'package:spacex/main.dart';
 import 'package:spacex/ui/components/ui_helper.dart';
 
 class LaunchesSearchBar extends HookWidget {
@@ -24,7 +23,6 @@ class LaunchesSearchBar extends HookWidget {
                   ?.name
                   ?.regex ??
               '';
-          logger.e('defaultSearedText: $defaultSearedText');
           searchTextController.text = defaultSearedText;
           loadedFilter = true;
         }

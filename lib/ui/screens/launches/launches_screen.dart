@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
 import 'package:spacex/controller/cubit/repository_cubit.dart';
+import 'package:spacex/controller/go_router.dart';
 import 'package:spacex/model/launches/launches_query.dart';
 import 'package:spacex/model/repository.dart';
 import 'package:spacex/ui/screens/launches/launches_body.dart';
@@ -44,6 +46,10 @@ abstract class LaunchesScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(title),
+            leading: IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () => context.go(Navigation.home),
+            ),
             actions: [
               IconButton(
                 icon: const Icon(Icons.refresh),
@@ -51,7 +57,7 @@ abstract class LaunchesScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: Builder(builder: (_) => LaunchesBody(path: path)),
+          body: Builder(builder: (_) => CrewBody(path: path)),
         );
       }),
     );

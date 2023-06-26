@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:spacex/controller/cubit/launch_cubit.dart';
 import 'package:spacex/controller/cubit/repository_cubit.dart';
+import 'package:spacex/controller/go_router.dart';
 import 'package:spacex/ui/components/error_widget_with_reload.dart';
 import 'package:spacex/ui/components/unknown_cubit_state_error_widget.dart';
 import 'package:spacex/ui/screens/launch/launch_body_widget.dart';
@@ -35,6 +37,10 @@ class LaunchScreen extends StatelessWidget {
                 onPressed: () => context.read<LaunchCubit>().fetch(),
               ),
             ],
+            leading: IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () => context.go(Navigation.home),
+            ),
           ),
           body: Center(
             child: BlocBuilder<LaunchCubit, LaunchState>(

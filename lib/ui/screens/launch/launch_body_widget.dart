@@ -43,9 +43,6 @@ class LaunchBodyWidget extends StatelessWidget {
           if (launch.fairings != null)
             FairingsWidget(fairings: launch.fairings!),
           if (launch.links != null) LinksWidget(links: launch.links!),
-          Text(launch.links?.youtubeId ?? 'nic'),
-          if (launch.links?.youtubeId != null)
-            Text('youtubeId: ${launch.links?.youtubeId}'),
           if (launch.links?.youtubeId != null)
             YoutubeWidget(id: launch.links!.youtubeId!),
           if (launch.cores != null)

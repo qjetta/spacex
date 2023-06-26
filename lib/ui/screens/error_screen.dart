@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:spacex/controller/go_router.dart';
 
 class ErrorScreen extends StatelessWidget {
   final String message;
@@ -27,6 +29,10 @@ class ErrorScreen extends StatelessWidget {
             Text(
               message,
             ),
+            IconButton(
+                iconSize: 35,
+                onPressed: () => context.go(Navigation.home),
+                icon: const Icon(Icons.home)),
           ],
         ),
       ),

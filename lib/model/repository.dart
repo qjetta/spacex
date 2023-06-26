@@ -1,7 +1,11 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:spacex/controller/space_x_exception.dart';
 import 'package:spacex/main.dart';
+import 'package:spacex/model/crew/crew.dart';
 import 'package:spacex/model/launch/launch.dart';
 import 'package:spacex/model/launches/launches_query.dart';
 import 'package:spacex/model/launches/launches_simple_model.dart';
@@ -23,16 +27,31 @@ abstract class IRepository {
 
 class Repository implements IRepository {
   final http.Client _httpClient = http.Client();
-  final baseUrl = 'https://api.spacexdata.com/v4/launches';
+  static const baseUrl = 'https://api.spacexdata.com/v4';
+  static const launchesPath = '/launches';
+  static const crewPath = '/crew';
+  static const queryPath = '/query';
   static const contentTypeName = 'Content-Type';
   static const contentTypeValue = 'application/json';
+
+  Future<Crew> fetchCrew() async {
+    final jsonResponse = await _postRequestWithResponse(
+      requestBody: null,
+      urlSuffix: crewPath,
+      method: EMethod.get,
+    );
+
+    final rawList = jsonDecode(jsonResponse.body);
+
+    return Crew.fromJson({'crew': rawList});
+  }
 
   @override
   Future<SimpleLaunches> fetchLaunches({required LaunchesQuery query}) async {
     final String requestBody = jsonEncode(query.toJson());
     final jsonResponse = await _postRequest(
       requestBody: requestBody,
-      urlSuffix: '/query',
+      urlSuffix: '$launchesPath$queryPath',
       method: EMethod.post,
     );
     return SimpleLaunches.fromJson(jsonResponse);
@@ -40,11 +59,26 @@ class Repository implements IRepository {
 
   @override
   Future<Launch> fetchLaunch({required String id}) async {
-    final jsonResponse = await _postRequest(urlSuffix: '/$id');
+    final jsonResponse = await _postRequest(urlSuffix: '$launchesPath/$id');
     return Launch.fromJson(jsonResponse);
   }
 
   Future<Map<String, dynamic>> _postRequest({
+    String? requestBody,
+    String urlSuffix = '',
+    EMethod method = EMethod.get,
+  }) async {
+    http.Response response = await _postRequestWithResponse(
+      requestBody: requestBody,
+      urlSuffix: urlSuffix,
+      method: method,
+    );
+    final jsonResponse = jsonDecode(response.body);
+    logger.d(jsonResponse);
+    return jsonResponse;
+  }
+
+  Future<http.Response> _postRequestWithResponse({
     String? requestBody,
     String urlSuffix = '',
     EMethod method = EMethod.get,
@@ -65,9 +99,7 @@ class Repository implements IRepository {
       );
 
       if (response.statusCode == 200) {
-        final jsonResponse = jsonDecode(response.body);
-        logger.d(jsonResponse);
-        return jsonResponse;
+        return response;
       } else {
         String msg = 'Failed to fetch launches: ${response.statusCode}';
         logger.e(msg);

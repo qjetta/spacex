@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import
 
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
