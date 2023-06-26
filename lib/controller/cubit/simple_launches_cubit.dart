@@ -122,7 +122,7 @@ class SimpleLaunchesCubit extends Cubit<SimpleLaunchesState> {
             launchesSimpleList: loadedLaunches.launches ?? const [],
             hasNext: true),
       );
-      if (debug) Future.delayed(const Duration(seconds: 15));
+      if (debug) await Future.delayed(const Duration(seconds: 15));
     } else {
       _emitLoadingState(currentLaunchesQuery);
     }

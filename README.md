@@ -36,10 +36,11 @@ For navigation I use go_router.
 
 For state management I use cubits.
 
-Part of the application I localized with easy_localization. I finished with that because it is quite time consuming and not necessary here...
-
 For generating model objects from json I use freezed + json_annotation.
+
+Part of the application I localized with easy_localization. I finished with that because it is quite time consuming and not necessary here...
 
 Filter+sort is saved via flutter_secure_storage.
 
 For http requests I use http package.
+
