@@ -6,6 +6,7 @@ import 'package:spacex/ui/components/ui_helper.dart';
 
 class LaunchesSearchBar extends HookWidget {
   const LaunchesSearchBar({super.key});
+  static const searchBarKey = 'searchBarKey';
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +49,11 @@ class LaunchesSearchBar extends HookWidget {
           ),
           trailing: [
             IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () =>
-                  context.read<SimpleLaunchesCubit>().searchByText(''),
-            )
+                icon: const Icon(Icons.close),
+                onPressed: () {
+                  context.read<SimpleLaunchesCubit>().searchByText('');
+                  searchTextController.clear();
+                })
           ],
         ),
       ),

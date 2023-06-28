@@ -25,7 +25,9 @@ class LaunchCubit extends Cubit<LaunchState> {
     _emitLoadingState();
 
     try {
-      final Launch launch = await _repository.fetchLaunch(id: state.id);
+      final Launch launch = await _repository.fetchLaunch(
+        id: state.id,
+      );
       _emitLoadedState(launch);
     } on SpaceXException catch (e) {
       _emitErrorState(e);
@@ -57,14 +59,6 @@ class LaunchCubit extends Cubit<LaunchState> {
   void _emitLoadingState() {
     emit(
       LaunchLoading(
-        id: state.id,
-      ),
-    );
-  }
-
-  void willPopScope() {
-    emit(
-      LaunchWillPopScope(
         id: state.id,
       ),
     );

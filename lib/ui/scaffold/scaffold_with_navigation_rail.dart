@@ -39,8 +39,10 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
             labelType: NavigationRailLabelType.all,
             destinations: destinations,
           ),
+
           const VerticalDivider(thickness: 1, width: 1),
           // This is the main content.
+
           Expanded(
             child: body,
           ),

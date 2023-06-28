@@ -10,6 +10,9 @@ class LaunchesSort extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if ((MediaQuery.of(context)).size.height < 60.0) {
+      return Container();
+    }
     return Padding(
       padding: const EdgeInsets.only(
           left: UIHelper.paddingSmall,
@@ -19,14 +22,21 @@ class LaunchesSort extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(left: UIHelper.paddingBig),
         decoration: UIHelper.getBorderRadiusDecorationOpacity(),
-        child: const Row(
-          children: [
-            Icon(Icons.sort),
-            SizedBox(width: UIHelper.paddingSmall),
-            DropDownSortAttribute(),
-            SizedBox(width: UIHelper.paddingSmall),
-            DropDownSortDirection(),
-          ],
+        width: double.infinity,
+        child: const SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Icon(Icons.sort_by_alpha),
+              SizedBox(width: UIHelper.paddingSmall),
+              DropDownSortAttribute(),
+              SizedBox(width: UIHelper.paddingSmall),
+              DropDownSortDirection(),
+            ],
+          ),
         ),
       ),
     );

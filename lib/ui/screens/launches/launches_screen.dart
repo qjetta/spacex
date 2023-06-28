@@ -1,13 +1,11 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
-import 'package:spacex/controller/cubit/repository_cubit.dart';
+import 'package:spacex/controller/cubit/main_cubit.dart';
 import 'package:spacex/controller/go_router.dart';
-import 'package:spacex/model/launches/launches_query.dart';
 import 'package:spacex/model/repository.dart';
+import 'package:spacex/model/storage.dart';
 import 'package:spacex/ui/screens/launches/launches_body.dart';
 
 enum ELaunchesType {
@@ -15,7 +13,7 @@ enum ELaunchesType {
   upcoming,
 }
 
-abstract class LaunchesScreen extends StatelessWidget {
+abstract class LaunchesScreen extends StatefulWidget {
   const LaunchesScreen({
     required this.path,
     required this.launchesType,
@@ -25,18 +23,25 @@ abstract class LaunchesScreen extends StatelessWidget {
   final ELaunchesType launchesType;
 
   @override
-  Widget build(BuildContext context) {
-    var repositoryCubit = context.read<RepositoryCubit>();
+  State<LaunchesScreen> createState() => _LaunchesScreenState();
 
-    Repository repository = repositoryCubit.repository;
-    Storage storage = repositoryCubit.storage;
+  get title;
+}
+
+class _LaunchesScreenState extends State<LaunchesScreen> {
+  @override
+  Widget build(BuildContext context) {
+    var mainCubit = context.read<MainCubit>();
+
+    IRepository repository = mainCubit.repository;
+    Storage storage = mainCubit.storage;
 
     return BlocProvider<SimpleLaunchesCubit>(
       create: (context) {
         SimpleLaunchesCubit cubit = SimpleLaunchesCubit(
           repository: repository,
           storage: storage,
-          launchesType: launchesType,
+          launchesType: widget.launchesType,
         );
 
         cubit.fetchNextPage();
@@ -44,8 +49,9 @@ abstract class LaunchesScreen extends StatelessWidget {
       },
       child: Builder(builder: (context) {
         return Scaffold(
+          resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            title: Text(title),
+            title: Text(widget.title),
             leading: IconButton(
               icon: const Icon(Icons.home),
               onPressed: () => context.go(Navigation.home),
@@ -57,11 +63,22 @@ abstract class LaunchesScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: Builder(builder: (_) => CrewBody(path: path)),
+          body: Builder(
+            builder: (_) => LaunchesBody(path: widget.path),
+          ),
         );
       }),
     );
   }
 
-  get title;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    super.dispose();
+  }
 }

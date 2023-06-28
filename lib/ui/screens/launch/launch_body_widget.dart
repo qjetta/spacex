@@ -1,7 +1,4 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spacex/model/launch/launch.dart';
 import 'package:spacex/ui/components/ui_helper.dart';
 import 'package:spacex/ui/screens/launch/cores_list_widget.dart';

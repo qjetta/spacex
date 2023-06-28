@@ -1,9 +1,6 @@
-// ignore_for_file: unused_import
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spacex/model/launch/launch.dart';
 import 'package:spacex/ui/scaffold/scaffold_with_dynamic_navigation.dart';
 import 'package:spacex/ui/screens/crew/crew_screen.dart';
 import 'package:spacex/ui/screens/error_screen.dart';
@@ -14,8 +11,10 @@ import 'package:spacex/ui/screens/launches/upcoming_launches_screen.dart';
 
 class Navigation {
   static const home = '/home';
+
   static const pastLaunches = '$home/past-launches';
   static const upcomingLaunches = '$home/upcoming-launches';
+
   static const launch = 'launch';
   static const launchParameter = '/:id';
 

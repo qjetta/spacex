@@ -55,23 +55,25 @@ class ScaffoldWithDynamicNavigation extends StatelessWidget {
         context.go('/home');
         return true;
       },
-      child: LayoutBuilder(builder: (context, constraints) {
-        if (constraints.maxWidth < 450) {
-          return ScaffoldWithNavigationBar(
-            body: navigationShell,
-            selectedIndex: navigationShell.currentIndex,
-            onDestinationSelected: _goBranch,
-            titleAndIcons: titlesAndIcons,
-          );
-        } else {
-          return ScaffoldWithNavigationRail(
-            body: navigationShell,
-            selectedIndex: navigationShell.currentIndex,
-            onDestinationSelected: _goBranch,
-            titleAndIcons: titlesAndIcons,
-          );
-        }
-      }),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth < 450) {
+            return ScaffoldWithNavigationBar(
+              body: navigationShell,
+              selectedIndex: navigationShell.currentIndex,
+              onDestinationSelected: _goBranch,
+              titleAndIcons: titlesAndIcons,
+            );
+          } else {
+            return ScaffoldWithNavigationRail(
+              body: navigationShell,
+              selectedIndex: navigationShell.currentIndex,
+              onDestinationSelected: _goBranch,
+              titleAndIcons: titlesAndIcons,
+            );
+          }
+        },
+      ),
     );
   }
 }

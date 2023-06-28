@@ -5,6 +5,13 @@ import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
 
 class DropDownSortAttribute extends StatelessWidget {
   const DropDownSortAttribute({super.key});
+  static const list = <String>[
+    'date_utc',
+    'launchpad',
+    'name',
+    'rocket',
+    'success',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +22,14 @@ class DropDownSortAttribute extends StatelessWidget {
           elevation: 16,
           onChanged: (String? newValue) =>
               context.read<SimpleLaunchesCubit>().sortBy(newValue),
-          items: <String>['date_utc', 'launchpad', 'name', 'rocket', 'success']
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text('launches.sort.$value'.tr()),
-            );
-          }).toList(),
+          items: list.map<DropdownMenuItem<String>>(
+            (String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text('launches.sort.$value'.tr()),
+              );
+            },
+          ).toList(),
         );
       },
     );

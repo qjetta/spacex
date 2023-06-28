@@ -1,19 +1,22 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:spacex/controller/cubit/repository_cubit.dart';
 import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
+import 'package:spacex/model/storage.dart';
 import 'package:spacex/ui/screens/launches/launches_screen.dart';
 
-import 'MockRepository35.dart';
-import 'mock_repository_with_error.dart';
-import 'mock_storage.dart';
+import '../helper/mock_repository_35.dart';
+import '../helper/mock_repository_with_error.dart';
+import '../helper/mock_storage.dart';
+import '../helper/test_helper.dart';
 
 void main() {
   var launchesQuery = Storage().getDefaultQuery(ELaunchesType.upcoming);
 
   group('LaunchesSimpleCubit Test', () {
     setUp(
-      () async {},
+      () async {
+        await initTestEnv(integration: false);
+      },
     );
     blocTest<SimpleLaunchesCubit, SimpleLaunchesState>(
       'fetch 4 pages of launches',
@@ -126,42 +129,6 @@ void main() {
           hasNext: true,
           exception: MockRepositoryWithError.spaceXException,
         ),
-        // //2nd run
-        // SimpleLaunchesLoadingState(
-        //     launchesQuery: launchesQuery.copyWith(
-        //         options: launchesQuery.options?.copyWith(page: 1)),
-        //     launchesSimpleList: MockRepository().launches.sublist(0, 10),
-        //     hasNext: true),
-        // SimpleLaunchesLoadedState(
-        //   launchesQuery: launchesQuery.copyWith(
-        //       options: launchesQuery.options?.copyWith(page: 2)),
-        //   launchesSimpleList: MockRepository().launches.sublist(0, 20),
-        //   hasNext: true,
-        // ),
-        // //3rd run
-        // SimpleLaunchesLoadingState(
-        //     launchesQuery: launchesQuery.copyWith(
-        //         options: launchesQuery.options?.copyWith(page: 2)),
-        //     launchesSimpleList: MockRepository().launches.sublist(0, 20),
-        //     hasNext: true),
-        // SimpleLaunchesLoadedState(
-        //   launchesQuery: launchesQuery.copyWith(
-        //       options: launchesQuery.options?.copyWith(page: 3)),
-        //   launchesSimpleList: MockRepository().launches.sublist(0, 30),
-        //   hasNext: true,
-        // ),
-        // //4th run
-        // SimpleLaunchesLoadingState(
-        //     launchesQuery: launchesQuery.copyWith(
-        //         options: launchesQuery.options?.copyWith(page: 3)),
-        //     launchesSimpleList: MockRepository().launches.sublist(0, 30),
-        //     hasNext: true),
-        // SimpleLaunchesLoadedState(
-        //   launchesQuery: launchesQuery.copyWith(
-        //       options: launchesQuery.options?.copyWith(page: 4)),
-        //   launchesSimpleList: MockRepository().launches.sublist(0, 35),
-        //   hasNext: false,
-        // ),
       ],
     );
   });

@@ -33,7 +33,3 @@ class LaunchError extends LaunchState {
   });
   final SpaceXException exception;
 }
-
-class LaunchWillPopScope extends LaunchState {
-  const LaunchWillPopScope({required super.id});
-}

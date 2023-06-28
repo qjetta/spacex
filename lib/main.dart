@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:logger/logger.dart';
-import 'package:spacex/controller/cubit/repository_cubit.dart';
+import 'package:spacex/controller/cubit/main_cubit.dart';
 import 'package:spacex/model/repository.dart';
+import 'package:spacex/model/storage.dart';
 
 import 'controller/go_router.dart';
 
@@ -23,15 +24,14 @@ void main() async {
     EasyLocalization(
       supportedLocales: const [
         Locale('en'),
-        //TODO add others
       ],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
-      child: BlocProvider<RepositoryCubit>(
+      child: BlocProvider<MainCubit>(
         create: (context) {
           var repo = Repository();
           repo.init();
-          return RepositoryCubit(repository: repo);
+          return MainCubit(repository: repo, storage: Storage());
         },
         child: const SpaceXApp(),
       ),

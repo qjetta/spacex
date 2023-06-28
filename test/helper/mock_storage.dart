@@ -1,6 +1,7 @@
 import 'package:mocktail/mocktail.dart';
-import 'package:spacex/controller/cubit/repository_cubit.dart';
 import 'package:spacex/model/launches/launches_query.dart';
+import 'package:spacex/model/launches/launches_simple_model.dart';
+import 'package:spacex/model/storage.dart';
 import 'package:spacex/ui/screens/launches/launches_screen.dart';
 
 class MockStorage extends Mock implements Storage {
@@ -19,4 +20,13 @@ class MockStorage extends Mock implements Storage {
   LaunchesQuery getDefaultQuery(ELaunchesType eLaunchesType) {
     return Storage().getDefaultQuery(eLaunchesType);
   }
+
+  @override
+  Future<SimpleLaunches?> loadLaunches(ELaunchesType type) async {
+    return Future.value(SimpleLaunches(launches: []));
+  }
+
+  @override
+  Future<void> saveLaunches(
+      SimpleLaunches simpleLaunches, ELaunchesType type) async {}
 }

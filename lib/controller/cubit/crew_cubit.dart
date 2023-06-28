@@ -7,9 +7,11 @@ import 'package:spacex/model/repository.dart';
 part 'crew_state.dart';
 
 class CrewCubit extends Cubit<CrewState> {
-  CrewCubit({required this.repository}) : super(CrewInitial());
+  CrewCubit({
+    required this.repository,
+  }) : super(CrewInitial());
 
-  final Repository repository;
+  final IRepository repository;
 
   Future<void> fetch() async {
     try {
@@ -22,7 +24,9 @@ class CrewCubit extends Cubit<CrewState> {
     } on SpaceXException catch (e) {
       emit(CrewErrorState(exception: e));
     } on Exception catch (e) {
-      emit(CrewErrorState(exception: SpaceXException(e.toString())));
+      emit(CrewErrorState(
+        exception: SpaceXException(e.toString()),
+      ));
     }
   }
 }

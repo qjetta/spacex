@@ -1,15 +1,13 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
 import 'package:spacex/controller/go_router.dart';
 import 'package:spacex/ui/screens/launches/launch_list_tile.dart';
-import 'package:spacex/ui/screens/launch/launch_screen.dart';
 
 class LaunchListView extends StatelessWidget {
   const LaunchListView({Key? key, required this.path}) : super(key: key);
   static const loadNextNRecBeforeEnd = 1;
+  static const launchesListViewKey = 'launchesListViewKey';
   final String path;
 
   @override
@@ -17,6 +15,7 @@ class LaunchListView extends StatelessWidget {
     return BlocBuilder<SimpleLaunchesCubit, SimpleLaunchesState>(
       builder: (context, state) {
         return ListView.builder(
+          key: const Key(launchesListViewKey),
           itemCount:
               state.launchesSimpleList.length + (state.hasNext == true ? 1 : 0),
           itemBuilder: (context, index) {

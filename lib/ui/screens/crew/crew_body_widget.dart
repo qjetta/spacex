@@ -46,7 +46,9 @@ class CrewBodyWidget extends StatelessWidget {
                   return ListTile(
                     leading: SizedBox(
                       width: 80,
-                      child: CachedNetworkImageWithDefaults(url: person.image),
+                      child: CachedNetworkImageWithDefaults(
+                        url: person.image,
+                      ),
                     ),
                     title: TitleWithBackgroundWidget(
                       title: person.name,

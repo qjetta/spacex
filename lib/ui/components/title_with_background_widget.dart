@@ -25,6 +25,7 @@ class TitleWithBackgroundWidget extends StatelessWidget {
       child: Text(
         title,
         style: titleFont,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

@@ -4,7 +4,8 @@
         "landpad",
         "nodoc",
         "presskit",
-        "spacex"
+        "spacex",
+        "unfocus"
     ],
     "errorLens.excludePatterns": [
         "[build/**, lib/**.freezed.dart, lib/**.g.dart]"

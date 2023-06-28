@@ -18,16 +18,18 @@ class LaunchListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(UIHelper.paddingSmall,
-          UIHelper.paddingSmall, UIHelper.paddingSmall, 0),
+      padding: const EdgeInsets.fromLTRB(
+        UIHelper.paddingSmall,
+        UIHelper.paddingSmall,
+        UIHelper.paddingSmall,
+        0,
+      ),
       child: ListTile(
         horizontalTitleGap: UIHelper.paddingBig,
-        // title: IconWithText(
-        //   icon: createSuccessIcon(),
-        //   text: launch.name ?? '',
-        //   color: Theme.of(context).primaryColor,
-        // ),
-        title: TitleWithBackgroundWidget(level: 1, title: launch.name ?? ''),
+        title: TitleWithBackgroundWidget(
+          level: 1,
+          title: launch.name ?? '',
+        ),
         subtitle: createSubtitle(),
         onTap: () => context.go('$path?id=${launch.id}'),
       ),

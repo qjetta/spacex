@@ -9,22 +9,28 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(title: const Text('SpaceX Home')),
       body: Center(
-        child: SizedBox(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            HomeButton(
-              onPressed: () => GoRouter.of(context).go(Navigation.crew),
-              icon: const Icon(Icons.person),
-              text: 'Crew',
-            ),
-            const SizedBox(height: UIHelper.paddingBig),
-            HomeButton(
-              onPressed: () => GoRouter.of(context).go(Navigation.pastLaunches),
-              icon: const Icon(Icons.rocket),
-              text: 'Launches',
-            ),
-          ]),
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                HomeButton(
+                  onPressed: () => GoRouter.of(context).go(Navigation.crew),
+                  icon: const Icon(Icons.person),
+                  text: 'Crew',
+                ),
+                const SizedBox(height: UIHelper.paddingBig),
+                HomeButton(
+                  onPressed: () =>
+                      GoRouter.of(context).go(Navigation.pastLaunches),
+                  icon: const Icon(Icons.rocket),
+                  text: 'Launches',
+                ),
+              ]),
         ),
       ),
     );

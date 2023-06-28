@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:spacex/controller/space_x_exception.dart';
 import 'package:spacex/main.dart';
@@ -21,6 +20,10 @@ abstract class IRepository {
 
   Future<SimpleLaunches> fetchLaunches({required LaunchesQuery query});
   Future<Launch> fetchLaunch({required String id});
+
+  Future<Crew> fetchCrew();
+
+  init();
 }
 
 class Repository implements IRepository {
@@ -32,6 +35,7 @@ class Repository implements IRepository {
   static const contentTypeName = 'Content-Type';
   static const contentTypeValue = 'application/json';
 
+  @override
   Future<Crew> fetchCrew() async {
     final jsonResponse = await _postRequestWithResponse(
       requestBody: null,
@@ -150,7 +154,8 @@ class Repository implements IRepository {
     }
   }
 
+  @override
   init() {
-    //TODO do I need it?
+    //not needed now
   }
 }

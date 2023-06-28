@@ -30,9 +30,10 @@ class ErrorScreen extends StatelessWidget {
               message,
             ),
             IconButton(
-                iconSize: 35,
-                onPressed: () => context.go(Navigation.home),
-                icon: const Icon(Icons.home)),
+              iconSize: 35,
+              onPressed: () => context.go(Navigation.home),
+              icon: const Icon(Icons.home),
+            ),
           ],
         ),
       ),
