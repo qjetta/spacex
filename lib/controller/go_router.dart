@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spacex/ui/scaffold/scaffold_with_dynamic_navigation.dart';
-import 'package:spacex/ui/screens/crew/crew_screen.dart';
-import 'package:spacex/ui/screens/error_screen.dart';
-import 'package:spacex/ui/screens/home_screen.dart';
-import 'package:spacex/ui/screens/launch/launch_screen.dart';
-import 'package:spacex/ui/screens/launches/past_launches_screen.dart';
-import 'package:spacex/ui/screens/launches/upcoming_launches_screen.dart';
+import 'package:spacex/view/scaffold/scaffold_with_dynamic_navigation.dart';
+import 'package:spacex/view/screens/crew/crew_screen.dart';
+import 'package:spacex/view/screens/error_screen.dart';
+import 'package:spacex/view/screens/home_screen.dart';
+import 'package:spacex/view/screens/launch/launch_screen.dart';
+import 'package:spacex/view/screens/launches/past_launches_screen.dart';
+import 'package:spacex/view/screens/launches/upcoming_launches_screen.dart';
 
 class Navigation {
   static const home = '/home';

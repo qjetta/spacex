@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:spacex/ui/screens/launches/launch_list_view.dart';
-import 'package:spacex/ui/screens/launches/upcoming_launches_screen.dart';
+import 'package:spacex/view/screens/launches/launch_list_view.dart';
+import 'package:spacex/view/screens/launches/upcoming_launches_screen.dart';
 
 import '../test/helper/mock_repository_35.dart';
 import '../test/widget/top_test_widget_widget.dart';

@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:spacex/controller/cubit/simple_launches_cubit.dart';
 import 'package:spacex/model/storage.dart';
-import 'package:spacex/ui/screens/launches/launches_screen.dart';
+import 'package:spacex/view/screens/launches/launches_screen.dart';
 
 import '../helper/mock_repository_35.dart';
 import '../helper/mock_repository_with_error.dart';
