@@ -26,6 +26,7 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
     ];
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: body,
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex,

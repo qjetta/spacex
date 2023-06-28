@@ -31,13 +31,20 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
         ),
     ];
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Row(
         children: [
-          NavigationRail(
-            selectedIndex: selectedIndex,
-            onDestinationSelected: onDestinationSelected,
-            labelType: NavigationRailLabelType.all,
-            destinations: destinations,
+          FittedBox(
+            fit: BoxFit.fitHeight,
+            child: Container(
+              constraints: BoxConstraints.loose(const Size(100, 400)),
+              child: NavigationRail(
+                selectedIndex: selectedIndex,
+                onDestinationSelected: onDestinationSelected,
+                labelType: NavigationRailLabelType.all,
+                destinations: destinations,
+              ),
+            ),
           ),
 
           const VerticalDivider(thickness: 1, width: 1),

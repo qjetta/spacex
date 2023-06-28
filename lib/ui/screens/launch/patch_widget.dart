@@ -17,8 +17,6 @@ class PatchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     if (patch.small == null) return Container();
 
-    // return Container();
-
     return GroupFormWidget(
       title: "Patch:",
       level: 2,
